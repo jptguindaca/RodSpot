@@ -1,5 +1,6 @@
 using System;
 
+// Configuracao serializavel de movimento do jogador.
 [Serializable]
 public class PlayerStats
 {

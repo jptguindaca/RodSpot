@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Controla o zoom e evita oclusao com Cinemachine.
 public class CamaraController : MonoBehaviour
 {
     [SerializeField] private float zoomSpeed = 2f;
@@ -26,9 +27,9 @@ public class CamaraController : MonoBehaviour
     private float targetZoom;
     private float currentZoom;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Liga o input e guarda referencias do Cinemachine.
         controls = new PlayerControls();
         controls.Enable();
         controls.CameraControls.MouseZoom.performed += HandleMouseScroll;
@@ -36,15 +37,15 @@ public class CamaraController : MonoBehaviour
         cam = GetComponent<CinemachineCamera>();
         orbital = cam.GetComponent<CinemachineOrbitalFollow>();
 
-        targetZoom = currentZoom =orbital.Radius;
+        targetZoom = currentZoom = orbital.Radius;
 
+        // Garante o componente de desoclusao e configura-o.
         SetupDeoccluder();
     }
 
-    
-    // Update is called once per frame
     void Update()
     {
+        // Atualiza o alvo do zoom pelo scroll e suaviza o raio.
         if (scrollDelta.y != 0)
         {
             if(orbital != null)
@@ -60,11 +61,13 @@ public class CamaraController : MonoBehaviour
     
     private void HandleMouseScroll(InputAction.CallbackContext context)
     {
+        // Guarda o delta do scroll para o proximo Update.
         scrollDelta = context.ReadValue<Vector2>();
     }
 
     private void SetupDeoccluder()
     {
+        // Adiciona e configura o deoccluder para evitar colisoes.
         if (cam == null)
             return;
 

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// UI da stamina/escape do peixe.
 public class FishingEscapeUI : MonoBehaviour
 {
     [Header("References")]
@@ -18,7 +19,6 @@ public class FishingEscapeUI : MonoBehaviour
     [SerializeField] private Color safeColor = new Color(0.35f, 0.9f, 0.45f);
     [SerializeField] private Color dangerColor = new Color(1f, 0.4f, 0.4f);
 
-    private bool hasMissingReferences;
 
     private void Awake()
     {
@@ -30,6 +30,7 @@ public class FishingEscapeUI : MonoBehaviour
 
     public void Show()
     {
+        // Mostra a barra no inicio da recolha.
         if (!ValidateReferences())
         {
             return;
@@ -41,12 +42,14 @@ public class FishingEscapeUI : MonoBehaviour
 
     public void Hide()
     {
+        // Esconde a barra e limpa o texto.
         SetVisible(false);
         SetPercent(0f);
     }
 
     public void SetProgress(float normalized)
     {
+        // Atualiza o valor e a cor da barra.
         if (!ValidateReferences())
         {
             return;
@@ -69,6 +72,7 @@ public class FishingEscapeUI : MonoBehaviour
 
     private void SetPercent(float amount)
     {
+        // Atualiza a percentagem em texto.
         if (percentText == null)
         {
             return;
@@ -88,17 +92,6 @@ public class FishingEscapeUI : MonoBehaviour
 
     private bool ValidateReferences()
     {
-        if (canvasGroup != null && fillImage != null)
-        {
-            return true;
-        }
-
-        if (!hasMissingReferences)
-        {
-            hasMissingReferences = true;
-            Debug.LogWarning("FishingEscapeUI precisa das referencias: CanvasGroup e Image com Fill.");
-        }
-
-        return false;
+        return canvasGroup != null && fillImage != null;
     }
 }

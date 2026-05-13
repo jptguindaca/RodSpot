@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Controla movimento basico do jogador com CharacterController.
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
@@ -12,6 +13,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
+        // Cache do CharacterController.
         controller = GetComponent<CharacterController>();
 
         //Cursor.lockState = CursorLockMode.Locked;
@@ -19,18 +21,21 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        // Processa movimento e gravidade.
         HandleMovement();
         ApplyGravity();
     }
 
     public void Move(InputAction.CallbackContext context)
     {
+        // Guarda o input de movimento no plano X/Y.
         moveInput = context.ReadValue<Vector2>();
-        // Debug.Log($"Move input: {moveInput}");
+        // Debug.Log($"Input de movimento: {moveInput}");
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
+        // Salta apenas se estiver no chao.
         if (context.performed && controller.isGrounded)
         {
             velocity.y = Mathf.Sqrt(stats.jumpHeight * -2f * stats.gravity);
@@ -39,18 +44,20 @@ public class PlayerControl : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext context)
     {
+        // Ajusta a velocidade enquanto o sprint esta ativo.
         if (context.performed)
         {
             stats.moveSpeed = stats.maxMoveSpeed;
         }
         else if (context.canceled)
         {
-            stats.moveSpeed = 3f; // Reset to normal speed when sprinting stops
+            stats.moveSpeed = 3f; // Volta a velocidade normal quando o sprint termina.
         }
     }
 
     private void HandleMovement()
     {
+        // Move o jogador no plano da camera e roda para a direcao.
         Vector3 moveDirection = GetMoveDirection();
         controller.Move(moveDirection * stats.moveSpeed * Time.deltaTime);
 
@@ -62,6 +69,7 @@ public class PlayerControl : MonoBehaviour
 
     private Vector3 GetMoveDirection()
     {
+        // Converte input em direcao relativa a camera.
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
 
@@ -76,12 +84,14 @@ public class PlayerControl : MonoBehaviour
 
     private void RotatePlayer(Vector3 moveDirection)
     {
+        // Alinha o jogador com a direcao de movimento.
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
     }
 
     private void ApplyGravity()
     {
+        // Aplica gravidade manual ao CharacterController.
         if (controller.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;

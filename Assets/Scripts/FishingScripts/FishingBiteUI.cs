@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// UI da janela de fisgada (barra e percentagem).
 public class FishingBiteUI : MonoBehaviour
 {
     [Header("References")]
@@ -15,7 +16,6 @@ public class FishingBiteUI : MonoBehaviour
     [SerializeField] private bool hideOnComplete = true;
 
     private Coroutine countdownRoutine;
-    private bool hasMissingReferences;
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class FishingBiteUI : MonoBehaviour
 
     public void Show(float duration)
     {
+        // Inicia a contagem da janela de fisgada.
         if (!ValidateReferences())
         {
             return;
@@ -42,6 +43,7 @@ public class FishingBiteUI : MonoBehaviour
 
     public void Hide()
     {
+        // Interrompe a contagem e esconde o UI.
         if (countdownRoutine != null)
         {
             StopCoroutine(countdownRoutine);
@@ -53,6 +55,7 @@ public class FishingBiteUI : MonoBehaviour
 
     private IEnumerator CountdownRoutine(float duration)
     {
+        // Conta de 100% ate 0% durante a janela.
         SetVisible(true);
         SetFill(1f);
 
@@ -91,6 +94,7 @@ public class FishingBiteUI : MonoBehaviour
 
     private void SetFill(float amount)
     {
+        // Atualiza o preenchimento e o texto.
         if (fillImage != null)
         {
             fillImage.fillAmount = Mathf.Clamp01(amount);
@@ -101,6 +105,7 @@ public class FishingBiteUI : MonoBehaviour
 
     private void SetPercent(float amount)
     {
+        // Atualiza a percentagem em texto.
         if (percentText == null)
         {
             return;
@@ -112,17 +117,6 @@ public class FishingBiteUI : MonoBehaviour
 
     private bool ValidateReferences()
     {
-        if (canvasGroup != null && fillImage != null)
-        {
-            return true;
-        }
-
-        if (!hasMissingReferences)
-        {
-            hasMissingReferences = true;
-            Debug.LogWarning("FishingBiteUI precisa das referencias: CanvasGroup e Image com Fill.");
-        }
-
-        return false;
+        return canvasGroup != null && fillImage != null;
     }
 }

@@ -2,8 +2,10 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+// Aviso simples tipo toast com fade in/out.
 public class PlayerNotificationUI : MonoBehaviour
 {
+    // Referencia singleton usada quando nao ha referencia direta.
     public static PlayerNotificationUI Instance { get; private set; }
 
     [Header("References")]
@@ -19,13 +21,11 @@ public class PlayerNotificationUI : MonoBehaviour
     [SerializeField] private bool hideOnStart = true;
 
     private Coroutine messageRoutine;
-    private bool hasMissingReferences;
 
     public static void ShowGlobal(string message, float duration = -1f)
     {
         if (Instance == null)
         {
-            Debug.LogWarning("PlayerNotificationUI nao esta na cena. Adiciona o componente e define as referencias.");
             return;
         }
 
@@ -36,7 +36,6 @@ public class PlayerNotificationUI : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.LogWarning("PlayerNotificationUI nao esta na cena. Adiciona o componente e define as referencias.");
             return;
         }
 
@@ -65,6 +64,7 @@ public class PlayerNotificationUI : MonoBehaviour
 
     public void Show(string message, Color textColor, float duration = -1f)
     {
+        // Reinicia o aviso atual para mostrar a mensagem imediatamente.
         if (!ValidateReferences())
         {
             return;
@@ -81,6 +81,7 @@ public class PlayerNotificationUI : MonoBehaviour
 
     private IEnumerator ShowRoutine(string message, Color textColor, float duration)
     {
+        // Faz fade-in, espera e faz fade-out.
         messageText.text = message;
         messageText.color = textColor;
         yield return FadeTo(1f, fadeDuration);
@@ -100,6 +101,7 @@ public class PlayerNotificationUI : MonoBehaviour
         if (panelGroup == null)
             yield break;
 
+        // Interpola o alpha ate ao valor alvo.
         float start = panelGroup.alpha;
         float time = 0f;
         float safeDuration = Mathf.Max(0.01f, duration);
@@ -129,17 +131,6 @@ public class PlayerNotificationUI : MonoBehaviour
 
     private bool ValidateReferences()
     {
-        if (panelGroup != null && messageText != null)
-        {
-            return true;
-        }
-
-        if (!hasMissingReferences)
-        {
-            hasMissingReferences = true;
-            Debug.LogWarning("PlayerNotificationUI precisa das referencias: PanelGroup e TMP Text.");
-        }
-
-        return false;
+        return panelGroup != null && messageText != null;
     }
 }
