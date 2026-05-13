@@ -49,6 +49,16 @@ public class FishingController : MonoBehaviour
     [SerializeField] private float maxFishDifficulty = 0.9f;
     [SerializeField] private float escapeTime = 2.5f;
 
+    [Header("UI")]
+    [SerializeField] private PlayerNotificationUI notificationUI;
+    [SerializeField] private FishingBiteUI biteUI;
+    [SerializeField] private FishingEscapeUI escapeUI;
+    [SerializeField] private float notificationDuration = 2.5f;
+    [SerializeField] private Color infoTextColor = new Color(0.75f, 0.9f, 1f);
+    [SerializeField] private Color warningTextColor = new Color(1f, 0.85f, 0.35f);
+    [SerializeField] private Color successTextColor = new Color(0.45f, 0.95f, 0.45f);
+    [SerializeField] private Color errorTextColor = new Color(1f, 0.45f, 0.45f);
+
     private PlayerControls input;
     private FishingState state = FishingState.Idle;
 
@@ -71,6 +81,9 @@ public class FishingController : MonoBehaviour
     private readonly Queue<float> reelClickTimes = new Queue<float>();
     private float castStartTime;
     private bool isChargingCast;
+    private bool notificationWarned;
+    private bool biteUiWarned;
+    private bool escapeUiWarned;
 
     private void Awake()
     {
@@ -128,7 +141,7 @@ public class FishingController : MonoBehaviour
         state = FishingState.Aiming;
         castStartTime = Time.time;
         isChargingCast = true;
-        Debug.Log("A preparar lançamento...");
+        NotifyPlayer("A preparar lançamento...", infoTextColor);
     }
 
     private void OnCastCanceled(InputAction.CallbackContext context)
@@ -197,7 +210,7 @@ public class FishingController : MonoBehaviour
             currentBobberRigidbody.AddForce(force, ForceMode.Impulse);
         }
 
-        Debug.Log("Linha lançada.");
+        NotifyPlayer("Linha lançada.", infoTextColor);
 
         biteRoutine = StartCoroutine(WaitForBite());
 
@@ -211,14 +224,15 @@ public class FishingController : MonoBehaviour
 
         state = FishingState.FishHooked;
         canHookFish = true;
+        ShowBiteBar();
 
-        Debug.Log("Um peixe mordeu! Clica no botão direito!");
+        NotifyPlayer("Um peixe mordeu! CLICA NO BOTÃO DIREITO!", warningTextColor, hookWindow);
 
         yield return new WaitForSeconds(hookWindow);
 
         if (state == FishingState.FishHooked)
         {
-            Debug.Log("O peixe fugiu.");
+            NotifyPlayer("O peixe fugiu.", errorTextColor);
             ResetFishing();
         }
     }
@@ -227,13 +241,15 @@ public class FishingController : MonoBehaviour
     {
         canHookFish = false;
         state = FishingState.Reeling;
+        HideBiteBar();
+        ShowEscapeBar();
         currentFishStamina = fishStamina;
         reelClickTimes.Clear();
         escapeTimer = 0f;
         currentFishDifficulty = Random.Range(minFishDifficulty, maxFishDifficulty);
         currentRequiredClicksPerSecond = Mathf.Lerp(minClicksPerSecond, maxClicksPerSecond, currentFishDifficulty);
 
-        Debug.Log("Peixe ferrado! Clica rapido para puxar.");
+        NotifyPlayer("Peixe ferrado! Clica rapido para puxar.", warningTextColor);
     }
 
     private void HandleReeling()
@@ -248,6 +264,8 @@ public class FishingController : MonoBehaviour
         currentFishStamina += escapeRecoveryPerSecond * (1f - pressure) * Time.deltaTime;
         currentFishStamina = Mathf.Clamp(currentFishStamina, 0f, fishStamina);
 
+        UpdateEscapeBar();
+
         Debug.Log("A puxar peixe: " + currentFishStamina.ToString("F0"));
 
         if (clickRate < currentRequiredClicksPerSecond)
@@ -261,7 +279,7 @@ public class FishingController : MonoBehaviour
 
         if (escapeTimer >= escapeTime)
         {
-            Debug.Log("O peixe fugiu.");
+            NotifyPlayer("O peixe fugiu.", errorTextColor);
             ResetFishing();
             return;
         }
@@ -274,7 +292,7 @@ public class FishingController : MonoBehaviour
 
     private void CatchFish()
     {
-        Debug.Log("Peixe apanhado!");
+        NotifyPlayer("Peixe apanhado!", successTextColor);
 
         if (smoothResetRoutine != null)
         {
@@ -368,6 +386,9 @@ public class FishingController : MonoBehaviour
 
     private void CleanupFishing()
     {
+        HideBiteBar();
+        HideEscapeBar();
+
         if (currentBobber != null)
         {
             Destroy(currentBobber);
@@ -388,6 +409,76 @@ public class FishingController : MonoBehaviour
         escapeTimer = 0f;
 
         Debug.Log("Sistema de pesca reiniciado.");
+    }
+
+    private void NotifyPlayer(string message, Color textColor, float duration = -1f)
+    {
+        float finalDuration = duration > 0f ? duration : notificationDuration;
+
+        if (notificationUI != null)
+        {
+            notificationUI.Show(message, textColor, finalDuration);
+        }
+        else if (!notificationWarned)
+        {
+            notificationWarned = true;
+            Debug.LogWarning("FishingController: referencia de UI nao definida. Mensagens so aparecem no debug.");
+        }
+
+        Debug.Log(message);
+    }
+
+    private void ShowBiteBar()
+    {
+        if (biteUI != null)
+        {
+            biteUI.Show(hookWindow);
+        }
+        else if (!biteUiWarned)
+        {
+            biteUiWarned = true;
+            Debug.LogWarning("FishingController: referencia da Bite UI nao definida.");
+        }
+    }
+
+    private void HideBiteBar()
+    {
+        if (biteUI != null)
+        {
+            biteUI.Hide();
+        }
+    }
+
+    private void ShowEscapeBar()
+    {
+        if (escapeUI != null)
+        {
+            escapeUI.Show();
+        }
+        else if (!escapeUiWarned)
+        {
+            escapeUiWarned = true;
+            Debug.LogWarning("FishingController: referencia da Escape UI nao definida.");
+        }
+    }
+
+    private void HideEscapeBar()
+    {
+        if (escapeUI != null)
+        {
+            escapeUI.Hide();
+        }
+    }
+
+    private void UpdateEscapeBar()
+    {
+        if (escapeUI == null)
+        {
+            return;
+        }
+
+        float safeFishStamina = Mathf.Max(0.01f, fishStamina);
+        escapeUI.SetProgress(currentFishStamina / safeFishStamina);
     }
 
     private void RegisterReelClick()
@@ -430,6 +521,7 @@ public class FishingController : MonoBehaviour
         }
         else
         {
+            NotifyPlayer("Nao da para pescar aqui.", errorTextColor);
             ResetFishing();
         }
     }
