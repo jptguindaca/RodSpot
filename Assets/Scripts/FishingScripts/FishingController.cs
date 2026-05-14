@@ -4,7 +4,7 @@ using UnityEngine;
 /* 
 Controla o ciclo principal de pesca; logica separada por ficheiros parciais.
 
-Os fichiros Partial permitem organizar o codigo em blocos tematicos (input, fisgada, UI, etc) 
+Os ficheiros Partial permitem organizar o codigo em blocos tematicos (input, fisgada, UI, etc) 
     sem criar classes adicionais, mantendo tudo relacionado a pesca num unico componente.
 
 */
