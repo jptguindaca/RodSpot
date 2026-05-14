@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FishingSettings
   waterMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   catchReturnDuration: 0.5
   lineFadeDuration: 0.35
   minCastForce: 0
-  maxCastForce: 3
-  maxChargeTime: 1.2
-  upwardForce: 3
+  maxCastForce: 5
+  maxChargeTime: 2
+  upwardForce: 4
   minBiteTime: 2
   maxBiteTime: 6
   hookWindow: 1.5
