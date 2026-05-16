@@ -90,4 +90,14 @@ public class CamaraController : MonoBehaviour
         avoid.Strategy = CinemachineDeoccluder.ObstacleAvoidance.ResolutionStrategy.PullCameraForward;
         deoccluder.AvoidObstacles = avoid;
     }
+
+    public void StopCamera()
+    {
+        cam.enabled = false;
+    }
+
+    public void StartCamera()
+    {
+        cam.enabled = true;
+    }
 }

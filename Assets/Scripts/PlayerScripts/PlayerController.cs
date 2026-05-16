@@ -100,4 +100,10 @@ public class PlayerControl : MonoBehaviour
         velocity.y += stats.gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public void StopMovement()
+    {
+        moveInput = Vector3.zero;
+        velocity = Vector3.zero;
+    }
 }

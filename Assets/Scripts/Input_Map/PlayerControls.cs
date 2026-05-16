@@ -306,11 +306,139 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0d6fdbe5-0a5a-4f37-9cfb-568f3ad19f59"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Interactions"",
+            ""id"": ""a8359ca7-7061-42d8-b147-2c870f56324f"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1782693-bef1-4271-8799-4c0f16207c62"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BackPack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4becde46-eba3-4ac6-befb-e5945660df84"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button1"",
+                    ""type"": ""Button"",
+                    ""id"": ""87521a66-c687-4920-97c4-7f44bb36cec2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button2"",
+                    ""type"": ""Button"",
+                    ""id"": ""0100ee39-ff7e-4062-8666-2ab84fe4bbcc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Button3"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d8fde91-b30d-4a13-80f8-7b3a2cf9463e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ad39c36-74b0-4e59-a798-f5da89a7020b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""83a76a8a-93a8-4b9d-912a-9713807e7fb0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69c49644-ac09-4c0d-9b92-ed1cae7613c6"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BackPack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0e689cc-9af1-42fe-9f0b-1c07a4302732"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c06a7b1-0494-4c6d-9f55-7a0d9dbf0452"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64e18fd5-ee0d-4a9a-94de-743d2db98925"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70466a7f-9031-46d2-9ee9-935d983d2183"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -333,6 +461,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Fishing_Reel = m_Fishing.FindAction("Reel", throwIfNotFound: true);
         m_Fishing_Aim = m_Fishing.FindAction("Aim", throwIfNotFound: true);
         m_Fishing_Cancel = m_Fishing.FindAction("Cancel", throwIfNotFound: true);
+        // Interactions
+        m_Interactions = asset.FindActionMap("Interactions", throwIfNotFound: true);
+        m_Interactions_Interact = m_Interactions.FindAction("Interact", throwIfNotFound: true);
+        m_Interactions_BackPack = m_Interactions.FindAction("BackPack", throwIfNotFound: true);
+        m_Interactions_Button1 = m_Interactions.FindAction("Button1", throwIfNotFound: true);
+        m_Interactions_Button2 = m_Interactions.FindAction("Button2", throwIfNotFound: true);
+        m_Interactions_Button3 = m_Interactions.FindAction("Button3", throwIfNotFound: true);
+        m_Interactions_Back = m_Interactions.FindAction("Back", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -340,6 +476,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_GamePlay.enabled, "This will cause a leak and performance issues, PlayerControls.GamePlay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_CameraControls.enabled, "This will cause a leak and performance issues, PlayerControls.CameraControls.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Fishing.enabled, "This will cause a leak and performance issues, PlayerControls.Fishing.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Interactions.enabled, "This will cause a leak and performance issues, PlayerControls.Interactions.Disable() has not been called.");
     }
 
     /// <summary>
@@ -754,6 +891,157 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="FishingActions" /> instance referencing this action map.
     /// </summary>
     public FishingActions @Fishing => new FishingActions(this);
+
+    // Interactions
+    private readonly InputActionMap m_Interactions;
+    private List<IInteractionsActions> m_InteractionsActionsCallbackInterfaces = new List<IInteractionsActions>();
+    private readonly InputAction m_Interactions_Interact;
+    private readonly InputAction m_Interactions_BackPack;
+    private readonly InputAction m_Interactions_Button1;
+    private readonly InputAction m_Interactions_Button2;
+    private readonly InputAction m_Interactions_Button3;
+    private readonly InputAction m_Interactions_Back;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Interactions".
+    /// </summary>
+    public struct InteractionsActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public InteractionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_Interactions_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/BackPack".
+        /// </summary>
+        public InputAction @BackPack => m_Wrapper.m_Interactions_BackPack;
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/Button1".
+        /// </summary>
+        public InputAction @Button1 => m_Wrapper.m_Interactions_Button1;
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/Button2".
+        /// </summary>
+        public InputAction @Button2 => m_Wrapper.m_Interactions_Button2;
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/Button3".
+        /// </summary>
+        public InputAction @Button3 => m_Wrapper.m_Interactions_Button3;
+        /// <summary>
+        /// Provides access to the underlying input action "Interactions/Back".
+        /// </summary>
+        public InputAction @Back => m_Wrapper.m_Interactions_Back;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Interactions; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="InteractionsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(InteractionsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="InteractionsActions" />
+        public void AddCallbacks(IInteractionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InteractionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InteractionsActionsCallbackInterfaces.Add(instance);
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @BackPack.started += instance.OnBackPack;
+            @BackPack.performed += instance.OnBackPack;
+            @BackPack.canceled += instance.OnBackPack;
+            @Button1.started += instance.OnButton1;
+            @Button1.performed += instance.OnButton1;
+            @Button1.canceled += instance.OnButton1;
+            @Button2.started += instance.OnButton2;
+            @Button2.performed += instance.OnButton2;
+            @Button2.canceled += instance.OnButton2;
+            @Button3.started += instance.OnButton3;
+            @Button3.performed += instance.OnButton3;
+            @Button3.canceled += instance.OnButton3;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="InteractionsActions" />
+        private void UnregisterCallbacks(IInteractionsActions instance)
+        {
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @BackPack.started -= instance.OnBackPack;
+            @BackPack.performed -= instance.OnBackPack;
+            @BackPack.canceled -= instance.OnBackPack;
+            @Button1.started -= instance.OnButton1;
+            @Button1.performed -= instance.OnButton1;
+            @Button1.canceled -= instance.OnButton1;
+            @Button2.started -= instance.OnButton2;
+            @Button2.performed -= instance.OnButton2;
+            @Button2.canceled -= instance.OnButton2;
+            @Button3.started -= instance.OnButton3;
+            @Button3.performed -= instance.OnButton3;
+            @Button3.canceled -= instance.OnButton3;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="InteractionsActions.UnregisterCallbacks(IInteractionsActions)" />.
+        /// </summary>
+        /// <seealso cref="InteractionsActions.UnregisterCallbacks(IInteractionsActions)" />
+        public void RemoveCallbacks(IInteractionsActions instance)
+        {
+            if (m_Wrapper.m_InteractionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="InteractionsActions.AddCallbacks(IInteractionsActions)" />
+        /// <seealso cref="InteractionsActions.RemoveCallbacks(IInteractionsActions)" />
+        /// <seealso cref="InteractionsActions.UnregisterCallbacks(IInteractionsActions)" />
+        public void SetCallbacks(IInteractionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InteractionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InteractionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="InteractionsActions" /> instance referencing this action map.
+    /// </summary>
+    public InteractionsActions @Interactions => new InteractionsActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GamePlay" which allows adding and removing callbacks.
     /// </summary>
@@ -833,5 +1121,55 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Interactions" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="InteractionsActions.AddCallbacks(IInteractionsActions)" />
+    /// <seealso cref="InteractionsActions.RemoveCallbacks(IInteractionsActions)" />
+    public interface IInteractionsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "BackPack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBackPack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Button1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnButton1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Button2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnButton2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Button3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnButton3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Back" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBack(InputAction.CallbackContext context);
     }
 }
