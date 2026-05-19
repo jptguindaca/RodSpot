@@ -1,21 +1,50 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ButtonShop : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private GameObject currentPanel;
-    [SerializeField] public GameObject targetPanel;
+    [SerializeField] private GameObject traderInteractionPanel;    
+    [SerializeField] public GameObject traderCompraPanel;
+    [SerializeField] private GameObject upgradePanel;
+    [SerializeField] private GameObject itemPanel;
 
     public void ShowUI()
     {
-        if (currentPanel != null)
+        if (traderInteractionPanel != null)
         {
-            currentPanel.SetActive(false);
+            traderInteractionPanel.SetActive(false);
         }
 
-        if (targetPanel != null)
+        if (traderCompraPanel != null)
         {
-            targetPanel.SetActive(true);
+            traderCompraPanel.SetActive(true);
+        }
+
+        SetTab(upgradePanel);
+    }
+
+    public void upgradeButthon()
+    {
+        SetTab(upgradePanel);
+    }
+
+    public void itemButton()
+    {
+        SetTab(itemPanel);
+    }
+
+    private void SetTab(GameObject targetPanel)
+    {
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(targetPanel == upgradePanel);
+        }
+
+        if (itemPanel != null)
+        {
+            itemPanel.SetActive(targetPanel == itemPanel);
         }
     }
 }

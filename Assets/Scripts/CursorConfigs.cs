@@ -46,9 +46,9 @@ public class CursorConfigs : MonoBehaviour
             return;
         }
 
-        if (buttonShop != null && buttonShop.targetPanel != null)
+        if (buttonShop != null && buttonShop.traderCompraPanel != null)
         {
-            buttonShop.targetPanel.SetActive(false);
+            buttonShop.traderCompraPanel.SetActive(false);
         }
 
         HideCursor();
@@ -57,8 +57,8 @@ public class CursorConfigs : MonoBehaviour
     private bool IsUiOpen()
     {
         return buttonShop != null
-            && buttonShop.targetPanel != null
-            && buttonShop.targetPanel.activeSelf;
+            && buttonShop.traderCompraPanel != null
+            && buttonShop.traderCompraPanel.activeSelf;
     }
 
     public void ShowCursor()
