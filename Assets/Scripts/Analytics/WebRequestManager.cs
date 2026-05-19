@@ -118,7 +118,7 @@ public class WebRequestManager : MonoBehaviour
         /*PlayerData.PlayerDataInfo playerDataInfo = PlayerData.CreateClassFromJson(responseText);
 
         Debug.Log( $"Player Name: {playerDataInfo.name}," +
-            $"Player Lives: {playerDataInfo.lives}," +
+            $"Player Lives: {playerDataInfo.lives}," +\z
             $"Player Health: {playerDataInfo.health}");*/
     }
     private void ProcessingRequestPost(UnityWebRequest webRequest)
