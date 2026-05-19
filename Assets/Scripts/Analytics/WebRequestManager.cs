@@ -18,15 +18,8 @@ public class WebRequestManager : MonoBehaviour
     {
         
     }
-
-    public void Teste()
-    {
-        Debug.Log("Adeus");
-
-    }
     public void OnButtonClick(string buttonName)
     {
-        Debug.Log("Button" + (buttonName) + "adeus");
 
         if(buttonName == "get")
         {
@@ -62,8 +55,8 @@ public class WebRequestManager : MonoBehaviour
         PlayerData.PlayerDataInfo playerDataInfo = new PlayerData.PlayerDataInfo()
         {
             name = "Daniel",
-            lives = 10,
-            health = 100,
+            name_fish = "betta",
+            fish_rarity = "common",
         };
 
        string PlayerInfoJson = PlayerData.CreateJsonFromClass(playerDataInfo);
@@ -117,8 +110,8 @@ public class WebRequestManager : MonoBehaviour
             PlayerData.PlayerDataInfo playeriInfo = playerDataToArray._playerDataInfoArray[i];
 
             Debug.Log($"Player Name: {playeriInfo.name}," +
-                $"Player Lives: {playeriInfo.lives}," +
-                $"Player Health: {playeriInfo.health}");
+                $"Player Lives: {playeriInfo.name_fish}," +
+                $"Player Health: {playeriInfo.fish_rarity}");
 
         }
 

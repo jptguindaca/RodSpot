@@ -17,11 +17,11 @@ public class PlayerData
     [Serializable]
     public class PlayerDataInfo
     {
-        public string name="Teste";
+        public string name;
 
-        public int lives=99;
+        public string name_fish;
 
-        public float health=100.0f;
+        public string fish_rarity;
 
 
     }
