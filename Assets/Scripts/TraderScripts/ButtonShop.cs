@@ -35,6 +35,11 @@ public class ButtonShop : MonoBehaviour
         SetTab(itemPanel);
     }
 
+    public void PauseMenu()
+    {
+        
+    }
+
     private void SetTab(GameObject targetPanel)
     {
         if (upgradePanel != null)
