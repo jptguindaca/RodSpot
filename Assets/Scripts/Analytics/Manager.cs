@@ -13,7 +13,7 @@ public class Manager : MonoBehaviour
 
  public void OnButtonEventClickGET(string buttonType)
     { 
-        _web.OnButtonClick(buttonType);     
+       // _web.OnButtonClick(buttonType);     
     }
  
 }

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public partial class FishingController
 {
+    //chama O WEBrequestManager para guardar o peixe apanhado e guardar numa base de dados
+
+    public WebRequestManager BD;
+
     private void StartReelingFish()
     {
         // Inicia o minijogo de recolha e stamina.
@@ -68,6 +72,12 @@ public partial class FishingController
         }
 
         smoothResetRoutine = StartCoroutine(SmoothCatchReset());
+
+        Debug.Log("Peixe apanhado!");
+        // chama o WebRequest para guardar o peixe apanhado.
+        BD._PostData();
+        // chama o peixe da BD para mostrar o peixe apanhado
+        BD._GetData();
     }
 
     private void RegisterReelClick()

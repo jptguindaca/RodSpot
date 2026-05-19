@@ -2,6 +2,7 @@ using System.Collections;
 using System.Net;
 using System.Threading;
 using Unity.VisualScripting.ReorderableList;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 using static System.Net.WebRequestMethods;
@@ -18,25 +19,30 @@ public class WebRequestManager : MonoBehaviour
     {
         
     }
-    public void OnButtonClick(string buttonName)
+    public void _GetData()
     {
 
-        if(buttonName == "get")
-        {
-            StartCoroutine(GetRequest(_getpath + _geturl));
-        }
-        else if(buttonName == "post")
-        {
-            StartCoroutine(PostRequest());
-        }
-        else if (buttonName == "DB")
-        {
-            StartCoroutine(GetRequest(_getpath + _dataurl));
-        }
+        StartCoroutine(GetRequest(_getpath + _geturl));
+
+    }
+    public void _PostData()
+    {
+
+        StartCoroutine(PostRequest());
+
+    }
+
+    public void _GetDataFromDB()
+    {
+
+        StartCoroutine(GetRequest(_getpath + _dataurl));
+
     }
     private IEnumerator GetRequest(string url)
     {
-       UnityWebRequest _webRequest = UnityWebRequest.Get(url);
+        Debug.Log("A iniciar o GET");
+
+        UnityWebRequest _webRequest = UnityWebRequest.Get(url);
 
         _webRequest.timeout = 5;
 
@@ -44,14 +50,20 @@ public class WebRequestManager : MonoBehaviour
 
         if (validateResponse(_webRequest))
         {
+            Debug.Log("GET iniciado");
+
+            Debug.Log("Resposta: " + _webRequest.downloadHandler.text);
+
             processingDebug(_webRequest);
 
             ProcessingRequestGet(_webRequest);
         }
-        
+       
+
     }
     private IEnumerator PostRequest()
     {
+        Debug.Log("A iniciar o POST...");
         PlayerData.PlayerDataInfo playerDataInfo = new PlayerData.PlayerDataInfo()
         {
             name = "Daniel",
@@ -69,12 +81,16 @@ public class WebRequestManager : MonoBehaviour
 
         if (validateResponse(webRequest))
         {
+            Debug.Log("POST iniciado");
+
+            Debug.Log("Resposta: " + webRequest.downloadHandler.text);
 
             processingDebug(webRequest);
   
             ProcessingRequestPost(webRequest);
 
         }
+
 
     }
 
