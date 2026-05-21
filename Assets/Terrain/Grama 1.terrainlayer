@@ -7,17 +7,17 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Grama 1
-  m_DiffuseTexture: {fileID: 2800000, guid: e318f31bebce62d48a648da3f8ba56c9, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 17cc5677d5a413843b9003e53261c859, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: c2c41b39d91c90f4f88eaba64dc60d7d, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 9a1568052101f2f48ba76e7342adc3f3, type: 3}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 2, y: 2}
-  m_TileOffset: {x: 0, y: 0}
+  m_TileSize: {x: 5, y: 5}
+  m_TileOffset: {x: 5, y: 5}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
   m_Smoothness: 0
-  m_NormalScale: 1
+  m_NormalScale: 0
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_DiffuseRemapMax: {x: 0.13082945, y: 0.7924528, z: 0.13825916, w: 1}
+  m_DiffuseRemapMax: {x: 0.18063581, y: 1, z: 0, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_MaskMapRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_SmoothnessSource: 1
