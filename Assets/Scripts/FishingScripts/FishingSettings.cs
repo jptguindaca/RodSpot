@@ -20,6 +20,9 @@ public class FishingSettings : ScriptableObject
     public float maxBiteTime = 6f;
     public float hookWindow = 1.5f;
 
+    [Header("Fish Data")]
+    public FishDatabase fishDatabase;
+
     [Header("Reeling Settings")]
     public float fishStamina = 100f;
     public float reelDamagePerSecond = 25f;

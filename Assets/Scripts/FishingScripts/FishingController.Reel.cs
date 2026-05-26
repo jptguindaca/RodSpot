@@ -13,11 +13,20 @@ public partial class FishingController
         state = FishingState.Reeling;
         HideBiteBar();
         ShowEscapeBar();
-        currentFishStamina = settings.fishStamina;
+        if (currentFish == null)
+        {
+            SelectCurrentFish();
+        }
+
+        float difficultyMultiplier = currentFish != null ? Mathf.Max(0.1f, currentFish.difficultyMultiplier) : 1f;
+        float staminaMultiplier = currentFish != null ? Mathf.Max(0.1f, currentFish.staminaMultiplier) : 1f;
+        currentFishStaminaMax = settings.fishStamina * staminaMultiplier;
+        currentFishStamina = currentFishStaminaMax;
         reelClickTimes.Clear();
         escapeTimer = 0f;
         currentFishDifficulty = Random.Range(settings.minFishDifficulty, settings.maxFishDifficulty);
         currentRequiredClicksPerSecond = Mathf.Lerp(settings.minClicksPerSecond, settings.maxClicksPerSecond, currentFishDifficulty);
+        currentRequiredClicksPerSecond *= difficultyMultiplier;
 
         notifications?.ShowFishHooked();
     }
@@ -33,7 +42,8 @@ public partial class FishingController
         pressure = Mathf.Clamp01(pressure);
         currentFishStamina -= settings.reelDamagePerSecond * pressure * Time.deltaTime;
         currentFishStamina += settings.escapeRecoveryPerSecond * (1f - pressure) * Time.deltaTime;
-        currentFishStamina = Mathf.Clamp(currentFishStamina, 0f, settings.fishStamina);
+        float staminaLimit = currentFishStaminaMax > 0f ? currentFishStaminaMax : settings.fishStamina;
+        currentFishStamina = Mathf.Clamp(currentFishStamina, 0f, staminaLimit);
 
         UpdateEscapeBar();
 
@@ -65,6 +75,11 @@ public partial class FishingController
     {
         // Finaliza a captura e inicia o reset suave.
         notifications?.ShowFishCaught();
+        if (catchUI != null)
+        {
+            catchUI.Show(currentFish);
+        }
+        FishCaught?.Invoke(currentFish);
 
         if (smoothResetRoutine != null)
         {
@@ -126,7 +141,7 @@ public partial class FishingController
             return;
         }
 
-        float safeFishStamina = Mathf.Max(0.01f, settings.fishStamina);
+        float safeFishStamina = Mathf.Max(0.01f, currentFishStaminaMax > 0f ? currentFishStaminaMax : settings.fishStamina);
         escapeUI.SetProgress(currentFishStamina / safeFishStamina);
     }
 }

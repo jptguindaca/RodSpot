@@ -111,6 +111,8 @@ public partial class FishingController
         canHookFish = false;
         reelClickTimes.Clear();
         escapeTimer = 0f;
+        currentFish = null;
+        currentFishStaminaMax = 0f;
 
         Debug.Log("Sistema de pesca reiniciado.");
     }

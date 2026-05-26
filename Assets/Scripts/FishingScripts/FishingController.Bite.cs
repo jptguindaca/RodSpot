@@ -11,6 +11,7 @@ public partial class FishingController
 
         state = FishingState.FishHooked;
         canHookFish = true;
+        SelectCurrentFish();
         ShowBiteBar();
 
         notifications?.ShowBite(settings.hookWindow);
@@ -39,6 +40,18 @@ public partial class FishingController
         if (biteUI != null)
         {
             biteUI.Hide();
+        }
+    }
+
+    private void SelectCurrentFish()
+    {
+        if (settings != null && settings.fishDatabase != null)
+        {
+            currentFish = settings.fishDatabase.GetRandomFish();
+        }
+        else
+        {
+            currentFish = null;
         }
     }
 }

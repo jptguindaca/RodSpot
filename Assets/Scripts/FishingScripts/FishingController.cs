@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ public partial class FishingController : MonoBehaviour
     [SerializeField] private FishingNotifications notifications;
     [SerializeField] private FishingBiteUI biteUI;
     [SerializeField] private FishingEscapeUI escapeUI;
+    [SerializeField] private FishingCatchUI catchUI;
 
     private PlayerControls input;
     private FishingState state = FishingState.Idle;
@@ -52,10 +54,15 @@ public partial class FishingController : MonoBehaviour
     private Color lineEndColor;
     private float currentRequiredClicksPerSecond;
     private float currentFishDifficulty;
+    private float currentFishStaminaMax;
     private float escapeTimer;
     private readonly Queue<float> reelClickTimes = new Queue<float>();
     private float castStartTime;
     private bool isChargingCast;
+    private FishData currentFish;
+
+    public FishData CurrentFish => currentFish;
+    public event Action<FishData> FishCaught;
 
     private void Awake()
     {
