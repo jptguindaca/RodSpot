@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="160mm"
+   height="30mm"
+   viewBox="0 0 160 30"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="butoes.svg"
+   inkscape:export-filename="butoes.png"
+   inkscape:export-xdpi="19.352381"
+   inkscape:export-ydpi="19.352381"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.53858859"
+     inkscape:cx="292.431"
+     inkscape:cy="619.21103"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4"
+       inkscape:label="START BTN"
+       style="display:inline"
+       transform="matrix(1.7111111,0,0,1.3665893,96.035686,-70.527393)">
+      <path
+         d="m 21.273042,52.16726 0.119262,20.980014 A 16.837842,10.523612 0 0 0 37.074307,62.672289 16.837842,10.523612 0 0 0 21.273184,52.16726 Z"
+         style="opacity:0.43;fill:#808080;fill-opacity:1;stroke:#070200;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:396.6;stroke-opacity:0.531047;paint-order:fill markers stroke"
+         id="path41" />
+      <ellipse
+         style="opacity:0.43;fill:#7e7e7e;fill-opacity:1;stroke:#070200;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:396.6;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         id="path32"
+         cx="-43.187206"
+         cy="62.524296"
+         rx="12.678166"
+         ry="11.618881" />
+      <ellipse
+         style="fill:#5599ff;fill-opacity:1;stroke:#070200;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:396.6;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         id="path33"
+         cx="-43.0154"
+         cy="62.293301"
+         rx="9.9462576"
+         ry="8.625411" />
+      <path
+         d="M 21.273042,52.16726 A 16.837842,10.523612 0 0 0 20.237263,52.149433 16.837842,10.523612 0 0 0 3.3977813,62.672898 16.837842,10.523612 0 0 0 19.16778,73.175609 l 1.662436,-0.0042 a 16.837842,10.523612 0 0 0 0.561932,-0.02234 z"
+         style="opacity:0.43;fill:#808080;fill-opacity:1;stroke:#070200;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:396.6;paint-order:fill markers stroke"
+         id="path42" />
+      <path
+         d="m -36.348397,52.079634 c 0,0 7.040719,3.609657 7.4655,8.924866 0.425442,5.315167 -7.131462,12.27888 -7.131462,12.27888 L 19.16778,73.174906 A 16.837842,10.523612 0 0 1 3.3977813,62.672195 16.837842,10.523612 0 0 1 20.237263,52.14873 a 16.837842,10.523612 0 0 1 1.035779,0.01783 v -0.03125 z"
+         style="opacity:0.43;fill:#808080;fill-opacity:1;stroke:#070200;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:396.6;paint-order:fill markers stroke"
+         id="path40" />
+    </g>
+  </g>
+</svg>
