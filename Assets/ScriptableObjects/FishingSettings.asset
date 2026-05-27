@@ -24,6 +24,7 @@ MonoBehaviour:
   minBiteTime: 2
   maxBiteTime: 6
   hookWindow: 1.5
+  fishDatabase: {fileID: 11400000, guid: 34893a3ade0a90347b1e75fc2cd12fbf, type: 2}
   fishStamina: 100
   reelDamagePerSecond: 25
   escapeRecoveryPerSecond: 10

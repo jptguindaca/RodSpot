@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fd7ea039fe6a34bb95e5f4e2abf0e4, type: 3}
   m_Name: Fish 2
   m_EditorClassIdentifier: Assembly-CSharp::FishData
-  fishName: 
+  fishName: Betta
   rarity: 0
-  difficultyMultiplier: 1
-  staminaMultiplier: 1
-  icon: {fileID: 0}
+  difficultyMultiplier: 0.8
+  staminaMultiplier: 0.8
+  icon: {fileID: 1416434806, guid: 784889ad0197ffd40a7cfdc7f7ce5c71, type: 3}
+  fishPrefab: {fileID: 919132149155446097, guid: 82557441e6fc2734187f525ce5cfee3e, type: 3}

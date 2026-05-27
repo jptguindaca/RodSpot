@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fd7ea039fe6a34bb95e5f4e2abf0e4, type: 3}
   m_Name: Fish 6
   m_EditorClassIdentifier: Assembly-CSharp::FishData
-  fishName: 
-  rarity: 0
+  fishName: BlueTang
+  rarity: 1
   difficultyMultiplier: 1
   staminaMultiplier: 1
-  icon: {fileID: 0}
+  icon: {fileID: -223907095, guid: 784889ad0197ffd40a7cfdc7f7ce5c71, type: 3}
+  fishPrefab: {fileID: 919132149155446097, guid: b9cba27da459cfb42b69eb33c8a6226b, type: 3}
