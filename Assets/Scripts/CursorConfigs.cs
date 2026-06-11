@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CursorConfigs : MonoBehaviour
 {
+    /*
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private TraderInteraction traderInteraction;
@@ -128,5 +129,5 @@ public class CursorConfigs : MonoBehaviour
                 action.Disable();
             }
         }
-    }
+    }*/
 }

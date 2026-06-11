@@ -1,15 +1,47 @@
+using System.Globalization;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 // Controla movimento basico do jogador com CharacterController.
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : NetworkBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Transform cameraTransform;
 
     private CharacterController controller;
     private Vector3 moveInput;
+    private Vector3 cameraForward;
     private Vector3 velocity;
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+    }
+    [ServerRpc]
+    public void JumpServerRpc()
+    {
+        if (controller.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(stats.jumpHeight * -2f * stats.gravity);
+
+        }
+    }
+    [ServerRpc]
+    private void MoveServerRpc(Vector2 input, Vector3 forward)
+    {
+        moveInput = input;
+
+        cameraForward = forward;
+    }
+    [ServerRpc]
+    private void SprintServerRpc(bool sprinting)
+    {
+        stats.moveSpeed = sprinting? stats.maxMoveSpeed : 3f;
+    }
+    
 
     private void Start()
     {
@@ -22,37 +54,46 @@ public class PlayerControl : MonoBehaviour
     private void Update()
     {
         // Processa movimento e gravidade.
+
+        if (!IsServer) { return; }
+
         HandleMovement();
         ApplyGravity();
+      
+      
+       
     }
-
+ 
     public void Move(InputAction.CallbackContext context)
     {
-        // Guarda o input de movimento no plano X/Y.
-        moveInput = context.ReadValue<Vector2>();
-        // Debug.Log($"Input de movimento: {moveInput}");
+        if (!IsOwner) return;
+
+        Vector2 input = context.ReadValue<Vector2>();
+
+        Vector3 forward = cameraTransform.forward;
+
+        MoveServerRpc(input, forward);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        // Salta apenas se estiver no chao.
-        if (context.performed && controller.isGrounded)
+        if (!IsOwner) { return; }
+
+        if (context.performed)
         {
-            velocity.y = Mathf.Sqrt(stats.jumpHeight * -2f * stats.gravity);
+            JumpServerRpc();
         }
     }
 
     public void Sprint(InputAction.CallbackContext context)
     {
-        // Ajusta a velocidade enquanto o sprint esta ativo.
+        if (!IsOwner) return;
+
         if (context.performed)
-        {
-            stats.moveSpeed = stats.maxMoveSpeed;
-        }
-        else if (context.canceled)
-        {
-            stats.moveSpeed = 3f; // Volta a velocidade normal quando o sprint termina.
-        }
+            SprintServerRpc(true);
+
+        if (context.canceled)
+            SprintServerRpc(false);
     }
 
     private void HandleMovement()
@@ -79,7 +120,10 @@ public class PlayerControl : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        
+
         return forward * moveInput.y + right * moveInput.x;
+        
     }
 
     private void RotatePlayer(Vector3 moveDirection)

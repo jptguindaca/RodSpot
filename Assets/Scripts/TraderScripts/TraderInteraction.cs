@@ -98,7 +98,7 @@ public class TraderInteraction : MonoBehaviour
             interactTextTrader.SetActive(true);
             interactText.SetActive(false);
             FishingRod.SetActive(false);
-            cursorConfigs.ShowCursor();
+           // cursorConfigs.ShowCursor();
         }
 
     }
