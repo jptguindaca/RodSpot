@@ -9,15 +9,26 @@ public class PlayerControl : NetworkBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private SpawnPoint spawnPoint;
 
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 cameraForward;
     private Vector3 velocity;
 
-    public override void OnNetworkSpawn()
+    public override void OnNetworkSpawn()   
     {
         base.OnNetworkSpawn();
+
+        if (!IsServer) return;
+
+        Vector3 spawnPos = spawnPoint.GetRandomPoint();
+
+        transform.position = spawnPos;
+
+        if (!IsOwner) return;
+
+        cameraTransform = Camera.main.transform;
 
     }
     [ServerRpc]

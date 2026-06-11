@@ -1325,7 +1325,7 @@ MonoBehaviour:
     maxMoveSpeed: 5
     jumpHeight: 1
     gravity: -9.81
-  cameraTransform: {fileID: 1942850932666336206, guid: c7f6b0e85d3ac7e4590ab6af5391bbb7, type: 3}
+  cameraTransform: {fileID: 0}
 --- !u!114 &271003905368589276
 MonoBehaviour:
   m_ObjectHideFlags: 0
