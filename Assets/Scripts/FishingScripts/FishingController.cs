@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,9 +24,13 @@ public partial class FishingController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform rodTip;
+    [SerializeField] private Transform fishPreviewAnchor;
     [SerializeField] private GameObject bobberPrefab;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LineRenderer fishingLine;
+
+    [Header("Fish Preview")]
+    [SerializeField] private float fishPreviewDuration = 2f;
 
     [Header("Settings")]
     [SerializeField] private FishingSettings settings;
@@ -43,6 +48,7 @@ public partial class FishingController : MonoBehaviour
     private Rigidbody currentBobberRigidbody;
     private Coroutine biteRoutine;
     private Coroutine smoothResetRoutine;
+    private Coroutine fishPreviewRoutine;
     private float currentFishStamina;
     private bool canHookFish;
     private bool bobberLandedOnWater;

@@ -16,5 +16,6 @@ MonoBehaviour:
   rarity: 4
   difficultyMultiplier: 1.9
   staminaMultiplier: 2.4
+  experienceReward: 500
   icon: {fileID: 687719497, guid: 784889ad0197ffd40a7cfdc7f7ce5c71, type: 3}
   fishPrefab: {fileID: 919132149155446097, guid: 81a7bb802814a1b4680bb08555510f6f, type: 3}

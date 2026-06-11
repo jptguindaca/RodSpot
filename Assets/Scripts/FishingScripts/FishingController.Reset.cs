@@ -18,6 +18,12 @@ public partial class FishingController
             biteRoutine = null;
         }
 
+        if (fishPreviewRoutine != null)
+        {
+            StopCoroutine(fishPreviewRoutine);
+            fishPreviewRoutine = null;
+        }
+
         CleanupFishing();
     }
 
@@ -32,6 +38,12 @@ public partial class FishingController
         {
             StopCoroutine(biteRoutine);
             biteRoutine = null;
+        }
+
+        if (fishPreviewRoutine != null)
+        {
+            StopCoroutine(fishPreviewRoutine);
+            fishPreviewRoutine = null;
         }
 
         if (currentBobber == null)

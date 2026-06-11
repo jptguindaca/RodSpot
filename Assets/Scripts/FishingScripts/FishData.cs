@@ -13,6 +13,9 @@ public class FishData : ScriptableObject
     [Min(0.1f)]
     public float staminaMultiplier = 1f;
 
+    [Min(0)]
+    public int experienceReward = 10;
+
     public Sprite icon;
     public GameObject fishPrefab;
 }

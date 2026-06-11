@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public partial class FishingController
@@ -79,6 +80,7 @@ public partial class FishingController
         {
             catchUI.Show(currentFish);
         }
+        ShowFishPreview();
         FishCaught?.Invoke(currentFish);
 
         if (smoothResetRoutine != null)
@@ -93,6 +95,55 @@ public partial class FishingController
         BD._PostData();
         // chama o peixe da BD para mostrar o peixe apanhado
         BD._GetData();
+    }
+
+    private void ShowFishPreview()
+    {
+        if (currentFish == null || currentFish.fishPrefab == null)
+        {
+            return;
+        }
+
+        Transform anchor = fishPreviewAnchor != null
+            ? fishPreviewAnchor
+            : currentBobber != null
+                ? currentBobber.transform
+                : rodTip;
+        if (anchor == null)
+        {
+            return;
+        }
+
+        if (fishPreviewRoutine != null)
+        {
+            StopCoroutine(fishPreviewRoutine);
+        }
+
+        fishPreviewRoutine = StartCoroutine(ShowFishPreviewRoutine(anchor, currentFish.fishPrefab));
+    }
+
+    private IEnumerator ShowFishPreviewRoutine(Transform anchor, GameObject fishPrefab)
+    {
+        GameObject previewInstance = Instantiate(fishPrefab, anchor.position, anchor.rotation, anchor);
+        previewInstance.transform.localPosition = Vector3.zero;
+        previewInstance.transform.localRotation = Quaternion.identity;
+
+        if (previewInstance.GetComponent<Rigidbody>() != null)
+        {
+            Rigidbody previewRigidbody = previewInstance.GetComponent<Rigidbody>();
+            previewRigidbody.isKinematic = true;
+            previewRigidbody.useGravity = false;
+        }
+
+        float duration = Mathf.Max(0.01f, fishPreviewDuration);
+        yield return new WaitForSeconds(duration);
+
+        if (previewInstance != null)
+        {
+            Destroy(previewInstance);
+        }
+
+        fishPreviewRoutine = null;
     }
 
     private void RegisterReelClick()
