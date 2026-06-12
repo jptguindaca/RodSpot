@@ -19,3 +19,5 @@ MonoBehaviour:
   experienceReward: 60
   icon: {fileID: 1771038050, guid: 784889ad0197ffd40a7cfdc7f7ce5c71, type: 3}
   fishPrefab: {fileID: 919132149155446097, guid: 442b875a2a232a142a0e57a5cffd3772, type: 3}
+  valueMin: 85
+  valueMax: 113

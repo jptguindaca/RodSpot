@@ -76,12 +76,13 @@ public partial class FishingController
     {
         // Finaliza a captura e inicia o reset suave.
         notifications?.ShowFishCaught();
+        int catchValue = currentFish != null ? currentFish.GetRandomValue() : 0;
         if (catchUI != null)
         {
-            catchUI.Show(currentFish);
+            catchUI.Show(currentFish, catchValue);
         }
         ShowFishPreview();
-        FishCaught?.Invoke(currentFish);
+        FishCaught?.Invoke(currentFish, catchValue);
 
         if (smoothResetRoutine != null)
         {

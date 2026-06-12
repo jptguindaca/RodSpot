@@ -49,7 +49,7 @@ public class FishingProgression : MonoBehaviour
         }
     }
 
-    private void HandleFishCaught(FishData fish)
+    private void HandleFishCaught(FishData fish, int value)
     {
         int xpAmount = fish != null ? Mathf.Max(0, fish.experienceReward) : 0;
         if (xpAmount <= 0)

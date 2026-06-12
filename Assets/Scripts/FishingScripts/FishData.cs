@@ -18,4 +18,18 @@ public class FishData : ScriptableObject
 
     public Sprite icon;
     public GameObject fishPrefab;
+
+    [Header("Value")]
+    [Min(0)]
+    public int valueMin = 10;
+    [Min(0)]
+    public int valueMax = 50;
+
+    /// <summary>
+    /// Returns a random value between valueMin and valueMax.
+    /// </summary>
+    public int GetRandomValue()
+    {
+        return Random.Range(valueMin, valueMax + 1);
+    }
 }

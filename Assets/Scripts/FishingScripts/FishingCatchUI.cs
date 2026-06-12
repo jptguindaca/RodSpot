@@ -11,6 +11,7 @@ public class FishingCatchUI : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text rarityText;
+    [SerializeField] private TMP_Text valueText;
 
     [Header("Behavior")]
     [SerializeField] private bool hideOnStart = true;
@@ -33,7 +34,7 @@ public class FishingCatchUI : MonoBehaviour
         }
     }
 
-    public void Show(FishData fish)
+    public void Show(FishData fish, int value)
     {
         if (!ValidateReferences())
         {
@@ -45,7 +46,7 @@ public class FishingCatchUI : MonoBehaviour
             StopCoroutine(hideRoutine);
         }
 
-        ApplyFishData(fish);
+        ApplyFishData(fish, value);
         SetVisible(true);
         hideRoutine = StartCoroutine(HideAfterDelay());
     }
@@ -58,7 +59,7 @@ public class FishingCatchUI : MonoBehaviour
         hideRoutine = null;
     }
 
-    private void ApplyFishData(FishData fish)
+    private void ApplyFishData(FishData fish, int value)
     {
         if (fish == null)
         {
@@ -66,6 +67,7 @@ public class FishingCatchUI : MonoBehaviour
             rarityText.text = "";
             iconImage.sprite = null;
             iconImage.enabled = false;
+            if (valueText != null) valueText.text = "";
             return;
         }
 
@@ -74,6 +76,11 @@ public class FishingCatchUI : MonoBehaviour
         iconImage.sprite = fish.icon;
         iconImage.enabled = fish.icon != null;
         rarityText.color = GetRarityColor(fish.rarity);
+        if (valueText != null)
+        {
+            valueText.text = value.ToString() + " $";
+            valueText.color = new Color(1f, 0.8f, 0.2f, 1f);
+        }
     }
 
     private Color GetRarityColor(FishRarity rarity)

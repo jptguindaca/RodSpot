@@ -8,12 +8,12 @@ namespace Fishing
     public class InventoryItem
     {
         public FishData fish;
-        public int count;
+        public int value; // individual value of this catch
 
-        public InventoryItem(FishData fish)
+        public InventoryItem(FishData fish, int value = 0)
         {
             this.fish = fish;
-            this.count = 1;
+            this.value = value > 0 ? value : fish.GetRandomValue();
         }
     }
 
@@ -64,30 +64,40 @@ namespace Fishing
             RefreshUI();
         }
 
-        void OnFishCaught(FishData fish)
+        void OnFishCaught(FishData fish, int value)
         {
-            AddFish(fish);
+            AddFish(fish, value);
         }
 
         public void AddFish(FishData fish)
         {
             if (fish == null) return;
 
-            var entry = items.Find(i => i.fish == fish);
-            if (entry != null)
-            {
-                entry.count++;
-            }
-            else
-            {
-                items.Add(new InventoryItem(fish));
-            }
+            // Add a new inventory item with a random value for this catch
+            var item = new InventoryItem(fish);
+            items.Add(item);
 
             RefreshUI();
 
             if (inventoryUI != null)
             {
-                inventoryUI.ShowCatchPopup(fish);
+                inventoryUI.ShowCatchPopup(fish, item.value);
+                inventoryUI.Show();
+            }
+        }
+
+        public void AddFish(FishData fish, int value)
+        {
+            if (fish == null) return;
+
+            var item = new InventoryItem(fish, value);
+            items.Add(item);
+
+            RefreshUI();
+
+            if (inventoryUI != null)
+            {
+                inventoryUI.ShowCatchPopup(fish, item.value);
                 inventoryUI.Show();
             }
         }
@@ -95,9 +105,7 @@ namespace Fishing
         public void RemoveFish(FishData fish)
         {
             var entry = items.Find(i => i.fish == fish);
-            if (entry == null) return;
-            entry.count--;
-            if (entry.count <= 0) items.Remove(entry);
+            if (entry != null) items.Remove(entry);
             RefreshUI();
         }
 

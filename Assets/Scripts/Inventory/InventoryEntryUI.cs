@@ -6,17 +6,17 @@ namespace Fishing
 {
     public class InventoryEntryUI : MonoBehaviour
     {
+        public Image background;
         public Image icon;
         public TMP_Text nameText;
-        public TMP_Text rarityText;
-        public TMP_Text countText;
+        public TMP_Text valueText;
 
-        public void Setup(FishData fish, int count)
+        public void Setup(FishData fish, int value, Color rarityColor)
         {
             if (icon != null) icon.sprite = fish.icon;
             if (nameText != null) nameText.text = fish.fishName;
-            if (rarityText != null) rarityText.text = fish.rarity.ToString();
-            if (countText != null) countText.text = count.ToString();
+            if (valueText != null) valueText.text = value.ToString();
+            if (background != null) background.color = rarityColor;
         }
     }
 }

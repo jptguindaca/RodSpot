@@ -68,7 +68,7 @@ public partial class FishingController : MonoBehaviour
     private FishData currentFish;
 
     public FishData CurrentFish => currentFish;
-    public event Action<FishData> FishCaught;
+    public event Action<FishData, int> FishCaught;
 
     private void Awake()
     {
