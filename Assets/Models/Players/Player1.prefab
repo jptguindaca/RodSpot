@@ -1303,7 +1303,7 @@ MonoBehaviour:
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
+  DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
@@ -1326,6 +1326,7 @@ MonoBehaviour:
     jumpHeight: 1
     gravity: -9.81
   cameraTransform: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!114 &271003905368589276
 MonoBehaviour:
   m_ObjectHideFlags: 0

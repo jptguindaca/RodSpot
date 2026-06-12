@@ -18,18 +18,39 @@ public class PlayerControl : NetworkBehaviour
 
     public override void OnNetworkSpawn()   
     {
+
         base.OnNetworkSpawn();
 
-        if (!IsServer) return;
+        if (IsServer)
+        {
+            spawnPoint = FindFirstObjectByType<SpawnPoint>();
 
-        Vector3 spawnPos = spawnPoint.GetRandomPoint();
+            Debug.Log($"SpawnPoint encontrado: {spawnPoint}");
 
-        transform.position = spawnPos;
+            if (spawnPoint != null)
+            {
+                transform.position = spawnPoint.GetRandomPoint();
+            }
+        }
 
-        if (!IsOwner) return;
+        if (IsOwner)
+        {
+            Debug.Log($"Camera.main = {Camera.main}");
 
-        cameraTransform = Camera.main.transform;
+            if (Camera.main != null)
+                cameraTransform = Camera.main.transform;
+        }
+        if (IsServer)
+        {
+            spawnPoint = FindFirstObjectByType<SpawnPoint>();
 
+            if (spawnPoint != null)
+            {
+                Vector3 pos = spawnPoint.GetRandomPoint();
+
+                transform.SetPositionAndRotation(pos, Quaternion.identity);
+            }
+        }
     }
     [ServerRpc]
     public void JumpServerRpc()
@@ -52,14 +73,21 @@ public class PlayerControl : NetworkBehaviour
     {
         stats.moveSpeed = sprinting? stats.maxMoveSpeed : 3f;
     }
-    
 
-    private void Start()
+    private void Awake()
     {
         // Cache do CharacterController.
         controller = GetComponent<CharacterController>();
+    }
 
-        //Cursor.lockState = CursorLockMode.Locked;
+    private void Start()
+    {
+
+        if (IsOwner)
+        {
+            StartCoroutine(AssignCamera());
+        }
+
     }
 
     private void Update()
@@ -74,14 +102,30 @@ public class PlayerControl : NetworkBehaviour
       
        
     }
- 
+    private void LateUpdate()
+    {
+        if (!IsOwner) return;
+
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
+    }
+
+    private System.Collections.IEnumerator AssignCamera()
+    {
+        yield return new WaitUntil(() => Camera.main != null);
+
+        cameraTransform = Camera.main.transform;
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
 
         Vector2 input = context.ReadValue<Vector2>();
 
-        Vector3 forward = cameraTransform.forward;
+        Vector3 forward = cameraTransform != null ? cameraTransform.forward : Vector3.forward;
 
         MoveServerRpc(input, forward);
     }
@@ -122,8 +166,8 @@ public class PlayerControl : NetworkBehaviour
     private Vector3 GetMoveDirection()
     {
         // Converte input em direcao relativa a camera.
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+      Vector3 forward = cameraForward;
+Vector3 right = Vector3.Cross(Vector3.up, forward);
 
         forward.y = 0;
         right.y = 0;
