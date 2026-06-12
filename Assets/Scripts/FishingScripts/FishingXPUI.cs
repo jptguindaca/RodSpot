@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// UI da progressao de XP da pesca em formato barra + badge de nivel.
+// UI da progressao de XP da pesca
 public class FishingXPUI : MonoBehaviour
 {
     [Header("References")]

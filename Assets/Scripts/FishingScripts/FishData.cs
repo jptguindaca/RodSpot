@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Dados de um peixe individual para o sistema de raridade.
+// dados de um peixe individual para o sistema de raridade
 [CreateAssetMenu(menuName = "Fishing/Fish", fileName = "FishData")]
 public class FishData : ScriptableObject
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Valores de configuracao do sistema de pesca.
+// Valores de configuracao do sistema de pesca
 [CreateAssetMenu(menuName = "Fishing/Settings", fileName = "FishingSettings")]
 public class FishingSettings : ScriptableObject
 {

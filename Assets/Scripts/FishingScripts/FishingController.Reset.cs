@@ -5,7 +5,7 @@ public partial class FishingController
 {
     private void ResetFishing()
     {
-        // Para corrotinas e limpa o estado atual.
+        // Para corrotinas e limpa o estado atual
         if (smoothResetRoutine != null && !isResetting)
         {
             StopCoroutine(smoothResetRoutine);

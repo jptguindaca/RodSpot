@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Configuracao de UI e cores da pesca.
+// Configuracao de UI e cores da pesca
 [CreateAssetMenu(menuName = "Fishing/UI Settings", fileName = "FishingUISettings")]
 public class FishingUISettings : ScriptableObject
 {

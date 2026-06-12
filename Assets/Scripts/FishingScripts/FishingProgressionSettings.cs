@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Configuracao da progressao de XP da pesca.
+// Configuracao da progressao de XP da pesca
 [CreateAssetMenu(menuName = "Fishing/Progression Settings", fileName = "FishingProgressionSettings")]
 public class FishingProgressionSettings : ScriptableObject
 {

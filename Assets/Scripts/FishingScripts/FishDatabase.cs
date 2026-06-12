@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Lista de peixes e selecao aleatoria para o sistema de raridade.
+// lista de peixes e selecao aleatoria para o sistema de raridade
 [CreateAssetMenu(menuName = "Fishing/Fish Database", fileName = "FishDatabase")]
 public class FishDatabase : ScriptableObject
 {

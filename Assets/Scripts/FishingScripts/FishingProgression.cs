@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Controla XP e nivel da pesca, escutando os peixes apanhados.
+// Controla XP e nivel da pesca
 public class FishingProgression : MonoBehaviour
 {
     [Header("References")]

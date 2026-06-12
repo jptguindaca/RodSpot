@@ -72,7 +72,7 @@ public class FishingEscapeUI : MonoBehaviour
 
     private void SetPercent(float amount)
     {
-        // Atualiza a percentagem em texto.
+        // Atualiza a percentagem em texto
         if (percentText == null)
         {
             return;

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// UI de peixe capturado (icone e raridade).
+// UI de peixe capturado icone e raridade
 public class FishingCatchUI : MonoBehaviour
 {
     [Header("References")]

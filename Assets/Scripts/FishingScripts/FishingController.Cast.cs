@@ -4,7 +4,7 @@ public partial class FishingController
 {
     private void CastLine(float chargeRatio)
     {
-        // Instancia a boia, prepara a linha e aplica a forca do lance.
+        // Instancia a boia, prepara a linha e aplica a forca do lance
         state = FishingState.WaitingBite;
 
         currentBobber = Instantiate(bobberPrefab, rodTip.position, Quaternion.identity);
@@ -46,7 +46,7 @@ public partial class FishingController
 
     private void UpdateFishingLine()
     {
-        // Mantem a linha entre a ponta da cana e a boia.
+        // mantem a linha entre a ponta da cana e a boia
         if (fishingLine == null || currentBobber == null)
             return;
 

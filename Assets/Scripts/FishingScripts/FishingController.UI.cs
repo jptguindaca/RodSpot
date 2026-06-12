@@ -4,7 +4,7 @@ public partial class FishingController
 {
     private bool ValidateSettings()
     {
-        // Confirma que os ScriptableObjects estao atribuídos.
+        // Confirma que os ScriptableObjects estao atribuídos
         bool valid = true;
 
         if (settings == null)

@@ -98,6 +98,14 @@ public partial class FishingController : MonoBehaviour
             fishingLine.enabled = false;
             fishingLine.positionCount = 0;
         }
+
+        // Register with InventoryManager if available to avoid runtime FindObjectOfType calls.
+        try
+        {
+            var inv = Fishing.InventoryManager.Instance;
+            inv?.RegisterFishingController(this);
+        }
+        catch { }
     }
 
     private void OnEnable()

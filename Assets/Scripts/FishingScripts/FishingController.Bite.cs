@@ -5,7 +5,7 @@ public partial class FishingController
 {
     private IEnumerator WaitForBite()
     {
-        // Espera um tempo aleatorio e abre a janela de fisgada.
+        // Espera um tempo aleatorio e abre a janela de fisgada
         float waitTime = Random.Range(settings.minBiteTime, settings.maxBiteTime);
         yield return new WaitForSeconds(waitTime);
 

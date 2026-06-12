@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// UI da janela de fisgada (barra e percentagem).
+// UI da janela de fisgada
 public class FishingBiteUI : MonoBehaviour
 {
     [Header("References")]

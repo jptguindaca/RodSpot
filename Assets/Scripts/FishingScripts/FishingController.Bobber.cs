@@ -4,7 +4,7 @@ public partial class FishingController
 {
     private void OnBobberTouched(Collider other)
     {
-        // Decide se a boia tocou na agua ou numa zona invalida.
+        // Decide se a boia tocou na agua ou em uma zona invalida
         if (bobberLandedOnWater)
             return;
 

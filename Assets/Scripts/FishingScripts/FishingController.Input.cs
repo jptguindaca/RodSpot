@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Callbacks do sistema de input para a pesca.
+// Callbacks do sistema de input para a pesca
 public partial class FishingController
 {
     private void OnCastStarted(InputAction.CallbackContext context)

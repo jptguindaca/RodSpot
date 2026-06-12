@@ -148,7 +148,7 @@ public partial class FishingController
 
     private void RegisterReelClick()
     {
-        // Regista o clique para calcular taxa de cliques.
+        // Regista o clique para calcular taxa de cliques
         reelClickTimes.Enqueue(Time.time);
     }
 
@@ -168,7 +168,7 @@ public partial class FishingController
 
     private void ShowEscapeBar()
     {
-        // Mostra a barra de stamina/escape.
+        // Mostra a barra de stamina/escape
         if (escapeUI != null)
         {
             escapeUI.Show();
@@ -177,7 +177,7 @@ public partial class FishingController
 
     private void HideEscapeBar()
     {
-        // Esconde a barra de stamina/escape.
+        // Esconde a barra de stamina/escape
         if (escapeUI != null)
         {
             escapeUI.Hide();
@@ -186,7 +186,7 @@ public partial class FishingController
 
     private void UpdateEscapeBar()
     {
-        // Atualiza a barra de stamina com o valor atual.
+        // Atualiza a barra de stamina com o valor atual
         if (escapeUI == null)
         {
             return;

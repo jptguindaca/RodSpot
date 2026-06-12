@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Centraliza as notificacoes da pesca.
+// Centraliza as notificacoes da pesca
 public class FishingNotifications : MonoBehaviour
 {
     [Header("References")]
