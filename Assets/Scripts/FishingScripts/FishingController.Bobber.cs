@@ -1,6 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public partial class FishingController
+public partial class FishingController :NetworkBehaviour
+
 {
     private void OnBobberTouched(Collider other)
     {

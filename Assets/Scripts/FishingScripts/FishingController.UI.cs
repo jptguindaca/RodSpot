@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public partial class FishingController
+public partial class FishingController : NetworkBehaviour
 {
     private bool ValidateSettings()
     {

@@ -1,18 +1,30 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    public Vector3 offset = new Vector3(0, 2, -4);
-    public float smooth = 10f;
 
     void LateUpdate()
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            FindLocalPlayer();
+            return;
+        }
 
-        Vector3 desiredPos = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, desiredPos, smooth * Time.deltaTime);
+        transform.position = target.position;
+    }
 
-        transform.LookAt(target);
+    void FindLocalPlayer()
+    {
+        foreach (var player in FindObjectsOfType<PlayerControl>())
+        {
+            if (player.IsOwner)
+            {
+                target = player.transform;
+                break;
+            }
+        }
     }
 }

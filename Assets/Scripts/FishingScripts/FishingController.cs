@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 /* 
@@ -8,7 +9,7 @@ Os ficheiros Partial permitem organizar o codigo em blocos tematicos (input, fis
     sem criar classes adicionais, mantendo tudo relacionado a pesca num unico componente.
 
 */
-public partial class FishingController : MonoBehaviour
+public partial class FishingController : NetworkBehaviour
 {
     // Estados do ciclo de pesca.
     private enum FishingState

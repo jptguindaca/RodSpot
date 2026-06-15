@@ -5453,7 +5453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687471770b26b424ea40d5f60cfe2093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  target: {fileID: 5852060817444010752, guid: 25bdee8919f1be149b27ad269cc20771, type: 3}
+  target: {fileID: 0}
   offset: {x: 0, y: 2, z: -4}
   smooth: 10
 --- !u!1001 &393280590
@@ -6608,7 +6608,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 7788
     WebSocketPath: /
     ServerListenAddress: 127.0.0.1
     ClientBindPort: 0
@@ -24236,6 +24236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9da04d71a1f744cacdaa58cc128cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishingController
+  ShowTopMostFoldoutHeaderGroup: 1
   BD: {fileID: 353296693}
   rodTip: {fileID: 0}
   bobberPrefab: {fileID: 2842317260903267560, guid: de9cd59cb4885a94e9a5f3b152375336, type: 3}
@@ -34309,6 +34310,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 690612180}
+  - {fileID: 392100817}
+  - {fileID: 483940315}
+  - {fileID: 209283192}
   - {fileID: 2129501849}
   - {fileID: 955807182}
   - {fileID: 1047062460}
@@ -34331,6 +34335,3 @@ SceneRoots:
   - {fileID: 988776797}
   - {fileID: 1516511284}
   - {fileID: 1208349663}
-  - {fileID: 392100817}
-  - {fileID: 483940315}
-  - {fileID: 209283192}

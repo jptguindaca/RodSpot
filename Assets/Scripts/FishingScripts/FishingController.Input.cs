@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Callbacks do sistema de input para a pesca.
-public partial class FishingController
+public partial class FishingController: NetworkBehaviour
 {
     private void OnCastStarted(InputAction.CallbackContext context)
     {

@@ -1,5 +1,6 @@
 using System.Globalization;
 using Unity.Cinemachine;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,9 +10,7 @@ using UnityEngine.InputSystem;
 public class PlayerControl : NetworkBehaviour
 {
     [SerializeField] private PlayerStats stats;
-    [SerializeField] private Transform cameraTransform;
-    private CameraFollow camFollow;
-
+    
 
     private CharacterController controller;
     private Vector3 moveInput;
@@ -32,24 +31,27 @@ public class PlayerControl : NetworkBehaviour
                 controller.enabled = false;
                 transform.SetPositionAndRotation(pos, Quaternion.identity);
                 controller.enabled = true;
+               
             }
-        }
 
+        }
         if (IsOwner)
         {
-            StartCoroutine(SetupCamera());
+            StartCoroutine(AssignCamera());
         }
+
     }
-    private System.Collections.IEnumerator SetupCamera()
+    private IEnumerator AssignCamera()
     {
-        yield return new WaitUntil(() => Camera.main != null);
+        yield return new WaitUntil(() =>
+        CameraManager.Instance != null &&
+        CameraManager.Instance.camTransform != null
+    );
 
-        Camera mainCam = Camera.main;
-
-        camFollow = mainCam.GetComponent<CameraFollow>();
+        var camFollow = CameraManager.Instance.camTransform.GetComponent<CameraFollow>();
 
         if (camFollow == null)
-            camFollow = mainCam.gameObject.AddComponent<CameraFollow>();
+            camFollow = CameraManager.Instance.camTransform.gameObject.AddComponent<CameraFollow>();
 
         camFollow.target = transform;
     }
@@ -68,6 +70,8 @@ public class PlayerControl : NetworkBehaviour
         moveInput = input;
 
         cameraForward = forward;
+
+
     }
     [ServerRpc]
     private void SprintServerRpc(bool sprinting)
@@ -81,16 +85,6 @@ public class PlayerControl : NetworkBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    private void Start()
-    {
-
-        if (IsOwner)
-        {
-            StartCoroutine(AssignCamera());
-        }
-
-    }
-
     private void Update()
     {
         // Processa movimento e gravidade.
@@ -99,25 +93,20 @@ public class PlayerControl : NetworkBehaviour
 
         HandleMovement();
         ApplyGravity();
-      
-      
        
     }
+
     private void LateUpdate()
     {
         if (!IsOwner) return;
 
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
-    }
+        if (CameraManager.Instance != null && CameraManager.Instance.camTransform != null)
+            return;
 
-    private System.Collections.IEnumerator AssignCamera()
-    {
-        yield return new WaitUntil(() => Camera.main != null);
+        if (Camera.main == null) return;
 
-        cameraTransform = Camera.main.transform;
+        if (CameraManager.Instance != null)
+            CameraManager.Instance.camTransform = Camera.main.transform;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -126,7 +115,12 @@ public class PlayerControl : NetworkBehaviour
 
         Vector2 input = context.ReadValue<Vector2>();
 
-        Vector3 forward = cameraTransform != null ? cameraTransform.forward : Vector3.forward;
+        Vector3 forward = Vector3.forward;
+
+        if (CameraManager.Instance != null && CameraManager.Instance.camTransform != null)
+        {
+            forward = CameraManager.Instance.camTransform.forward;
+        }
 
         MoveServerRpc(input, forward);
     }
