@@ -122,9 +122,11 @@ public partial class FishingController
         state = FishingState.Idle;
         canHookFish = false;
         reelClickTimes.Clear();
-        escapeTimer = 0f;
         currentFish = null;
-        currentFishStaminaMax = 0f;
+        currentRequiredClicks = 0;
+        currentFishClicks = 0;
+        currentEscapeTimeLimit = 0f;
+        currentEscapeTimeRemaining = 0f;
 
         Debug.Log("Sistema de pesca reiniciado.");
     }

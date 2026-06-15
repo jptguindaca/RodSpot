@@ -9,6 +9,7 @@ public class FishingEscapeUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Image fillImage;
     [SerializeField] private TMP_Text percentText;
+    [SerializeField] private TMP_Text timerText;
 
     [Header("Behavior")]
     [SerializeField] private bool hideOnStart = true;
@@ -37,19 +38,23 @@ public class FishingEscapeUI : MonoBehaviour
         }
 
         SetVisible(true);
-        SetProgress(1f);
+        fillImage.fillAmount = 0f;
+        SetClicksText(0, 1);
+        SetTimerText(0f, 0f);
     }
 
     public void Hide()
     {
         // Esconde a barra e limpa o texto.
         SetVisible(false);
-        SetPercent(0f);
+        fillImage.fillAmount = 0f;
+        SetClicksText(0, 1);
+        SetTimerText(0f, 0f);
     }
 
     public void SetProgress(float normalized)
     {
-        // Atualiza o valor e a cor da barra.
+        // Atualiza a barra com um valor normalizado.
         if (!ValidateReferences())
         {
             return;
@@ -70,6 +75,43 @@ public class FishingEscapeUI : MonoBehaviour
         }
     }
 
+    public void SetClicks(int currentClicks, int requiredClicks)
+    {
+        if (!ValidateReferences())
+        {
+            return;
+        }
+
+        int safeRequiredClicks = Mathf.Max(1, requiredClicks);
+        int safeCurrentClicks = Mathf.Clamp(currentClicks, 0, safeRequiredClicks);
+        float normalized = safeCurrentClicks / (float)safeRequiredClicks;
+
+        fillImage.fillAmount = normalized;
+        SetClicksText(safeCurrentClicks, safeRequiredClicks);
+
+        if (useColorLerp)
+        {
+            fillImage.color = Color.Lerp(safeColor, dangerColor, normalized);
+        }
+
+        if (hideWhenFull && normalized >= 1f)
+        {
+            SetVisible(false);
+        }
+    }
+
+    public void SetTimer(float remainingSeconds, float totalSeconds)
+    {
+        if (timerText == null)
+        {
+            return;
+        }
+
+        float safeTotalSeconds = Mathf.Max(0.01f, totalSeconds);
+        float clampedRemaining = Mathf.Clamp(remainingSeconds, 0f, safeTotalSeconds);
+        timerText.text = clampedRemaining.ToString("0.0") + "s";
+    }
+
     private void SetPercent(float amount)
     {
         // Atualiza a percentagem em texto
@@ -82,11 +124,36 @@ public class FishingEscapeUI : MonoBehaviour
         percentText.text = percent.ToString() + "%";
     }
 
+    private void SetClicksText(int currentClicks, int requiredClicks)
+    {
+        // Mostra o progresso como cliques feitos sobre o total.
+        if (percentText == null)
+        {
+            return;
+        }
+
+        percentText.text = currentClicks.ToString() + "/" + requiredClicks.ToString();
+    }
+
+    private void SetTimerText(float remainingSeconds, float totalSeconds)
+    {
+        if (timerText == null)
+        {
+            return;
+        }
+
+        float safeTotalSeconds = Mathf.Max(0.01f, totalSeconds);
+        float clampedRemaining = Mathf.Clamp(remainingSeconds, 0f, safeTotalSeconds);
+        timerText.text = clampedRemaining.ToString("0.0") + "s";
+    }
+
     private void SetVisible(bool visible)
     {
         if (canvasGroup != null)
         {
             canvasGroup.alpha = visible ? 1f : 0f;
+            canvasGroup.interactable = visible;
+            canvasGroup.blocksRaycasts = visible;
         }
     }
 

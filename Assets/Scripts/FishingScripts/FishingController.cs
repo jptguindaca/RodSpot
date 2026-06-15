@@ -49,7 +49,6 @@ public partial class FishingController : MonoBehaviour
     private Coroutine biteRoutine;
     private Coroutine smoothResetRoutine;
     private Coroutine fishPreviewRoutine;
-    private float currentFishStamina;
     private bool canHookFish;
     private bool bobberLandedOnWater;
     private bool isResetting;
@@ -58,10 +57,10 @@ public partial class FishingController : MonoBehaviour
     private float lineEndWidth;
     private Color lineStartColor;
     private Color lineEndColor;
-    private float currentRequiredClicksPerSecond;
-    private float currentFishDifficulty;
-    private float currentFishStaminaMax;
-    private float escapeTimer;
+    private int currentRequiredClicks;
+    private int currentFishClicks;
+    private float currentEscapeTimeLimit;
+    private float currentEscapeTimeRemaining;
     private readonly Queue<float> reelClickTimes = new Queue<float>();
     private float castStartTime;
     private bool isChargingCast;
@@ -126,10 +125,9 @@ public partial class FishingController : MonoBehaviour
 
     private void Update()
     {
-        // Atualiza a logica de recolha enquanto o peixe esta ferrado.
         if (state == FishingState.Reeling)
         {
-            HandleReeling();
+            HandleReelingTimer();
         }
 
         // Mantem a linha alinhada com a boia.

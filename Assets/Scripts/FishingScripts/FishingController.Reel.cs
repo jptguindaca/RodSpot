@@ -9,7 +9,7 @@ public partial class FishingController
 
     private void StartReelingFish()
     {
-        // Inicia o minijogo de recolha e stamina.
+        // Inicia o minijogo de cliques baseado na raridade do peixe.
         canHookFish = false;
         state = FishingState.Reeling;
         HideBiteBar();
@@ -19,57 +19,15 @@ public partial class FishingController
             SelectCurrentFish();
         }
 
-        float difficultyMultiplier = currentFish != null ? Mathf.Max(0.1f, currentFish.difficultyMultiplier) : 1f;
-        float staminaMultiplier = currentFish != null ? Mathf.Max(0.1f, currentFish.staminaMultiplier) : 1f;
-        currentFishStaminaMax = settings.fishStamina * staminaMultiplier;
-        currentFishStamina = currentFishStaminaMax;
+        currentRequiredClicks = GetRequiredClicksForCurrentFish();
+        currentFishClicks = 0;
+    currentEscapeTimeLimit = settings != null ? Mathf.Max(0.1f, settings.escapeTime) : 2.5f;
+    currentEscapeTimeRemaining = currentEscapeTimeLimit;
         reelClickTimes.Clear();
-        escapeTimer = 0f;
-        currentFishDifficulty = Random.Range(settings.minFishDifficulty, settings.maxFishDifficulty);
-        currentRequiredClicksPerSecond = Mathf.Lerp(settings.minClicksPerSecond, settings.maxClicksPerSecond, currentFishDifficulty);
-        currentRequiredClicksPerSecond *= difficultyMultiplier;
-
-        notifications?.ShowFishHooked();
-    }
-
-    private void HandleReeling()
-    {
-        // Atualiza stamina, escape e UI durante a recolha.
-        float clickRate = GetCurrentClickRate();
-        float pressure = currentRequiredClicksPerSecond > 0f
-            ? clickRate / currentRequiredClicksPerSecond
-            : 0f;
-
-        pressure = Mathf.Clamp01(pressure);
-        currentFishStamina -= settings.reelDamagePerSecond * pressure * Time.deltaTime;
-        currentFishStamina += settings.escapeRecoveryPerSecond * (1f - pressure) * Time.deltaTime;
-        float staminaLimit = currentFishStaminaMax > 0f ? currentFishStaminaMax : settings.fishStamina;
-        currentFishStamina = Mathf.Clamp(currentFishStamina, 0f, staminaLimit);
 
         UpdateEscapeBar();
 
-        Debug.Log("A puxar peixe: " + currentFishStamina.ToString("F0"));
-
-        if (clickRate < currentRequiredClicksPerSecond)
-        {
-            escapeTimer += Time.deltaTime;
-        }
-        else
-        {
-            escapeTimer = Mathf.Max(0f, escapeTimer - Time.deltaTime);
-        }
-
-        if (escapeTimer >= settings.escapeTime)
-        {
-            notifications?.ShowFishEscaped();
-            ResetFishing();
-            return;
-        }
-
-        if (currentFishStamina <= 0f)
-        {
-            CatchFish();
-        }
+        notifications?.ShowFishHooked();
     }
 
     private void CatchFish()
@@ -149,27 +107,65 @@ public partial class FishingController
 
     private void RegisterReelClick()
     {
-        // Regista o clique para calcular taxa de cliques
+        // Regista o clique do minijogo.
         reelClickTimes.Enqueue(Time.time);
-    }
 
-    private float GetCurrentClickRate()
-    {
-        // Calcula cliques por segundo dentro da janela.
-        float now = Time.time;
-        float window = Mathf.Max(0.01f, settings.clickWindow);
-
-        while (reelClickTimes.Count > 0 && now - reelClickTimes.Peek() > window)
+        if (state != FishingState.Reeling)
         {
-            reelClickTimes.Dequeue();
+            return;
         }
 
-        return reelClickTimes.Count / window;
+        currentFishClicks = Mathf.Clamp(currentFishClicks + 1, 0, currentRequiredClicks);
+        UpdateEscapeBar();
+
+        if (currentFishClicks >= currentRequiredClicks)
+        {
+            CatchFish();
+        }
+    }
+
+    private void HandleReelingTimer()
+    {
+        if (currentEscapeTimeRemaining <= 0f)
+        {
+            return;
+        }
+
+        currentEscapeTimeRemaining = Mathf.Max(0f, currentEscapeTimeRemaining - Time.deltaTime);
+        UpdateEscapeBar();
+
+        if (currentEscapeTimeRemaining <= 0f && state == FishingState.Reeling)
+        {
+            notifications?.ShowFishEscaped();
+            ResetFishing();
+        }
+    }
+
+    private int GetRequiredClicksForCurrentFish()
+    {
+        FishRarity rarity = currentFish != null ? currentFish.rarity : FishRarity.Common;
+
+        if (settings == null)
+        {
+            return 3;
+        }
+
+        int baseClicks = rarity switch
+        {
+            FishRarity.Uncommon => settings.uncommonClicksRequired,
+            FishRarity.Rare => settings.rareClicksRequired,
+            FishRarity.Epic => settings.epicClicksRequired,
+            FishRarity.Legendary => settings.legendaryClicksRequired,
+            _ => settings.commonClicksRequired,
+        };
+
+        float difficultyMultiplier = currentFish != null ? Mathf.Max(0.1f, currentFish.difficultyMultiplier) : 1f;
+        return Mathf.Max(1, Mathf.RoundToInt(baseClicks * difficultyMultiplier));
     }
 
     private void ShowEscapeBar()
     {
-        // Mostra a barra de stamina/escape
+        // Mostra a barra de progresso dos cliques.
         if (escapeUI != null)
         {
             escapeUI.Show();
@@ -178,7 +174,7 @@ public partial class FishingController
 
     private void HideEscapeBar()
     {
-        // Esconde a barra de stamina/escape
+        // Esconde a barra de progresso dos cliques.
         if (escapeUI != null)
         {
             escapeUI.Hide();
@@ -187,13 +183,14 @@ public partial class FishingController
 
     private void UpdateEscapeBar()
     {
-        // Atualiza a barra de stamina com o valor atual
+        // Atualiza a barra com o progresso atual de cliques e o tempo restante.
         if (escapeUI == null)
         {
             return;
         }
 
-        float safeFishStamina = Mathf.Max(0.01f, currentFishStaminaMax > 0f ? currentFishStaminaMax : settings.fishStamina);
-        escapeUI.SetProgress(currentFishStamina / safeFishStamina);
+        int safeRequiredClicks = Mathf.Max(1, currentRequiredClicks);
+        escapeUI.SetClicks(currentFishClicks, safeRequiredClicks);
+        escapeUI.SetTimer(currentEscapeTimeRemaining, currentEscapeTimeLimit);
     }
 }
