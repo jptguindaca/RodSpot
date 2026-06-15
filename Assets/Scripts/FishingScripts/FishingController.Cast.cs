@@ -1,15 +1,37 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public partial class FishingController
+public partial class FishingController: NetworkBehaviour
 {
+    [ServerRpc]
+    public void CastLineServerRpc(float chargeRatio)
+    {
+        CastLine(chargeRatio);
+    }
+  
     private void CastLine(float chargeRatio)
     {
-        // Instancia a boia, prepara a linha e aplica a forca do lance.
+        if (!IsServer) return;
+
+        if (rodTip == null)
+        {
+            Debug.LogError("RodTip não atribuído!");
+            return;
+        }
+
         state = FishingState.WaitingBite;
 
-        currentBobber = Instantiate(bobberPrefab, rodTip.position, Quaternion.identity);
-        currentBobberRigidbody = currentBobber.GetComponent<Rigidbody>();
-        bobberLandedOnWater = false;
+        GameObject bobber = Instantiate(
+            bobberPrefab,
+            rodTip.position,
+            Quaternion.identity
+        );
+
+        NetworkObject networkObject = bobber.GetComponent<NetworkObject>();
+        networkObject.Spawn();
+
+        currentBobber = bobber;
 
         BobberContact contact = currentBobber.AddComponent<BobberContact>();
         contact.Initialize(this);
@@ -23,6 +45,7 @@ public partial class FishingController
                 fishingLine.startColor = lineStartColor;
                 fishingLine.endColor = lineEndColor;
             }
+
             fishingLine.positionCount = 2;
             fishingLine.useWorldSpace = true;
             fishingLine.enabled = true;
@@ -43,7 +66,6 @@ public partial class FishingController
 
         biteRoutine = StartCoroutine(WaitForBite());
     }
-
     private void UpdateFishingLine()
     {
         // Mantem a linha entre a ponta da cana e a boia.
@@ -54,3 +76,6 @@ public partial class FishingController
         fishingLine.SetPosition(1, currentBobber.transform.position);
     }
 }
+
+   
+

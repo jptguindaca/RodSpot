@@ -1,4 +1,5 @@
 using System.Globalization;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,48 +10,48 @@ public class PlayerControl : NetworkBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private SpawnPoint spawnPoint;
+    private CameraFollow camFollow;
+
 
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 cameraForward;
     private Vector3 velocity;
 
-    public override void OnNetworkSpawn()   
+    public override void OnNetworkSpawn()
     {
-
         base.OnNetworkSpawn();
 
         if (IsServer)
         {
-            spawnPoint = FindFirstObjectByType<SpawnPoint>();
-
-            Debug.Log($"SpawnPoint encontrado: {spawnPoint}");
+            SpawnPoint spawnPoint = FindFirstObjectByType<SpawnPoint>();
 
             if (spawnPoint != null)
             {
-                transform.position = spawnPoint.GetRandomPoint();
+                Vector3 pos = spawnPoint.GetRandomPoint();
+                controller.enabled = false;
+                transform.SetPositionAndRotation(pos, Quaternion.identity);
+                controller.enabled = true;
             }
         }
 
         if (IsOwner)
         {
-            Debug.Log($"Camera.main = {Camera.main}");
-
-            if (Camera.main != null)
-                cameraTransform = Camera.main.transform;
+            StartCoroutine(SetupCamera());
         }
-        if (IsServer)
-        {
-            spawnPoint = FindFirstObjectByType<SpawnPoint>();
+    }
+    private System.Collections.IEnumerator SetupCamera()
+    {
+        yield return new WaitUntil(() => Camera.main != null);
 
-            if (spawnPoint != null)
-            {
-                Vector3 pos = spawnPoint.GetRandomPoint();
+        Camera mainCam = Camera.main;
 
-                transform.SetPositionAndRotation(pos, Quaternion.identity);
-            }
-        }
+        camFollow = mainCam.GetComponent<CameraFollow>();
+
+        if (camFollow == null)
+            camFollow = mainCam.gameObject.AddComponent<CameraFollow>();
+
+        camFollow.target = transform;
     }
     [ServerRpc]
     public void JumpServerRpc()
@@ -205,4 +206,5 @@ Vector3 right = Vector3.Cross(Vector3.up, forward);
         moveInput = Vector3.zero;
         velocity = Vector3.zero;
     }
+   
 }
