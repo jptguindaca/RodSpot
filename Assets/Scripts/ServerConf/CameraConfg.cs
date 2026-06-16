@@ -4,6 +4,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
+    public Vector3 offset = new Vector3(0f, 1.6f, 0f);
 
     void LateUpdate()
     {
@@ -13,7 +14,7 @@ public class CameraFollow : MonoBehaviour
             return;
         }
 
-        transform.position = target.position;
+        transform.position = target.position + offset;
     }
 
     void FindLocalPlayer()

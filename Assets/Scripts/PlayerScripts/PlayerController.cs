@@ -43,17 +43,16 @@ public class PlayerControl : NetworkBehaviour
     }
     private IEnumerator AssignCamera()
     {
-        yield return new WaitUntil(() =>
-        CameraManager.Instance != null &&
-        CameraManager.Instance.camTransform != null
-    );
+        yield return new WaitUntil(() => Camera.main != null);
 
-        var camFollow = CameraManager.Instance.camTransform.GetComponent<CameraFollow>();
+        CinemachineCamera cinemachineCam =
+            FindFirstObjectByType<CinemachineCamera>();
 
-        if (camFollow == null)
-            camFollow = CameraManager.Instance.camTransform.gameObject.AddComponent<CameraFollow>();
-
-        camFollow.target = transform;
+        if (cinemachineCam != null)
+        {
+            cinemachineCam.Follow = transform;
+            cinemachineCam.LookAt = transform;
+        }
     }
     [ServerRpc]
     public void JumpServerRpc()
