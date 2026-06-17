@@ -32,4 +32,9 @@ MonoBehaviour:
   clickWindow: 0.6
   minFishDifficulty: 0.2
   maxFishDifficulty: 0.9
-  escapeTime: 2.5
+  escapeTime: 10
+  commonClicksRequired: 3
+  uncommonClicksRequired: 5
+  rareClicksRequired: 8
+  epicClicksRequired: 12
+  legendaryClicksRequired: 18

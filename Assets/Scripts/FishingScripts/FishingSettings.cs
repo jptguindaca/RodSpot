@@ -32,4 +32,11 @@ public class FishingSettings : ScriptableObject
     public float minFishDifficulty = 0.2f;
     public float maxFishDifficulty = 0.9f;
     public float escapeTime = 2.5f;
+
+    [Header("Rarity Click Targets")]
+    [Min(1)] public int commonClicksRequired = 3;
+    [Min(1)] public int uncommonClicksRequired = 5;
+    [Min(1)] public int rareClicksRequired = 8;
+    [Min(1)] public int epicClicksRequired = 12;
+    [Min(1)] public int legendaryClicksRequired = 18;
 }
