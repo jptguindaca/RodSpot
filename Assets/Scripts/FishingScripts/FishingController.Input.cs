@@ -19,13 +19,14 @@ public partial class FishingController: NetworkBehaviour
 
     private void OnCastCanceled(InputAction.CallbackContext context)
     {
+        Debug.Log("Lançou");
         // Lanca a linha com base no tempo carregado.
         if (state == FishingState.Aiming)
         {
             float holdTime = isChargingCast ? Time.time - castStartTime : 0f;
             float chargeRatio = Mathf.Clamp01(holdTime / Mathf.Max(0.01f, settings.maxChargeTime));
             isChargingCast = false;
-            CastLine(chargeRatio);
+            CastLineServerRpc(chargeRatio);
         }
     }
 

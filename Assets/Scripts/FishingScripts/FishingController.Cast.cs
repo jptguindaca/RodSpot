@@ -4,15 +4,19 @@ using UnityEngine;
 
 public partial class FishingController: NetworkBehaviour
 {
+
     [ServerRpc]
     public void CastLineServerRpc(float chargeRatio)
     {
+        Debug.Log($"Spawned: {IsSpawned} Owner: {IsOwner}");
         CastLine(chargeRatio);
     }
   
     private void CastLine(float chargeRatio)
     {
         if (!IsServer) return;
+
+        Debug.Log("CAST EXECUTADO");
 
         if (rodTip == null)
         {
