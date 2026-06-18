@@ -25,9 +25,7 @@ public class FishData : ScriptableObject
     [Min(0)]
     public int valueMax = 50;
 
-    /// <summary>
-    /// Returns a random value between valueMin and valueMax.
-    /// </summary>
+   
     public int GetRandomValue()
     {
         return Random.Range(valueMin, valueMax + 1);
