@@ -8,7 +8,12 @@ public partial class FishingController: NetworkBehaviour
     [ServerRpc]
     public void CastLineServerRpc(float chargeRatio)
     {
-        Debug.Log($"Spawned: {IsSpawned} Owner: {IsOwner}");
+        Debug.Log(
+        $"CastLineServerRpc | IsOwner:{IsOwner} " +
+        $"Owner:{OwnerClientId} " +
+        $"Local:{NetworkManager.Singleton.LocalClientId}"
+    );
+
         CastLine(chargeRatio);
     }
   

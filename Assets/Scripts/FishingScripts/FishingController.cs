@@ -61,6 +61,15 @@ public partial class FishingController : NetworkBehaviour
 
     public event Action<FishData, int> FishCaught;
 
+    public override void OnNetworkSpawn()
+    {
+        Debug.Log($"FishingController Spawned | Owner:{IsOwner} Client:{OwnerClientId}");
+
+        if (!IsOwner)
+        {
+            input?.Fishing.Disable();
+        }
+    }
     private void Awake()
     {
         // Valida os ScriptableObjects antes de continuar.
@@ -93,7 +102,7 @@ public partial class FishingController : NetworkBehaviour
 
     private void OnEnable()
     {
-        if (input != null)
+        if (IsOwner && input != null)
         {
             input.Fishing.Enable();
         }
