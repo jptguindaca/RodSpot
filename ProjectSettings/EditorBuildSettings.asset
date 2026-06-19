@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Daniel/MainGame.unity
     guid: 9c87c8e62793ec74b8c28276ac875caa
+  - enabled: 1
+    path: Assets/Scenes/MAIN MENU W SETTNGS.unity
+    guid: a223a3179ccf6ef4c83f5cf33507bff7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 58368356eb630fd4e8363cd6224f0b75, type: 3}
   m_UseUCBPForAssetBundles: 0
