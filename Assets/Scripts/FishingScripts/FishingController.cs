@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -57,6 +58,8 @@ public partial class FishingController : NetworkBehaviour
     private readonly Queue<float> reelClickTimes = new Queue<float>();
     private float castStartTime;
     private bool isChargingCast;
+
+    public event Action<FishData, int> FishCaught;
 
     private void Awake()
     {
