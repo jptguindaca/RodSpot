@@ -3886,8 +3886,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CursorConfigs
   playerInput: {fileID: 0}
-  traderInteraction: {fileID: 0}
-  buttonShop: {fileID: 0}
+  traderInteraction: {fileID: 1895243172}
+  buttonShop: {fileID: 2055143757}
   actionsToToggle:
   - GamePlay/Move
   - GamePlay/Jump
@@ -31224,6 +31224,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 002be7541a0db4e448285a94c5b8e5fa, type: 3}
+--- !u!114 &1895243172 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7753269621899433811, guid: 002be7541a0db4e448285a94c5b8e5fa, type: 3}
+  m_PrefabInstance: {fileID: 1895243171}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1779083c1b192344fbee3f7eb340b769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TraderInteraction
 --- !u!1001 &1896241712
 PrefabInstance:
   m_ObjectHideFlags: 0
