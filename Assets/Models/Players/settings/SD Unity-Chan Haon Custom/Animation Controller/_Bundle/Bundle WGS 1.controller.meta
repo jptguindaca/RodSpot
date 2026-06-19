@@ -1,2 +1,16 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/SD Unity-Chan Haon Custom/Animation Controller/_BundleAndDummy/Bundle
+guid: a3c7e9f1b2d845a09e6f4c8d1a7b3e5f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 84992
+  packageName: Haon SD series Bundle
+  packageVersion: 3.1
+  assetPath: Assets/Models/Players/settings/SD Unity-Chan Haon Custom/Animation
+    Controller/_Bundle/Bundle WGS 1.controller
+  uploadId: 418201
