@@ -82,7 +82,6 @@ namespace Fishing
             if (inventoryUI != null)
             {
                 inventoryUI.ShowCatchPopup(fish, item.value);
-                inventoryUI.Show();
             }
         }
 
@@ -98,7 +97,6 @@ namespace Fishing
             if (inventoryUI != null)
             {
                 inventoryUI.ShowCatchPopup(fish, item.value);
-                inventoryUI.Show();
             }
         }
 
