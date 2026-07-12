@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Transform cameraTransform;
 
+    public PlayerStats Stats => stats;
+
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 velocity;
@@ -53,6 +55,51 @@ public class PlayerControl : MonoBehaviour
         {
             stats.moveSpeed = 3f; // Volta a velocidade normal quando o sprint termina.
         }
+    }
+
+    public int GetClickPowerPerPress()
+    {
+        return stats != null ? stats.GetClickPowerPerPress() : 1;
+    }
+
+    public float GetMoneyMultiplier()
+    {
+        return stats != null ? stats.GetMoneyMultiplier() : 1f;
+    }
+
+    public float GetRarityBias()
+    {
+        return stats != null ? stats.GetRarityBias() : 0f;
+    }
+
+    public float GetEscapeTimeBonusSeconds()
+    {
+        return stats != null ? stats.GetEscapeTimeBonusSeconds() : 0f;
+    }
+
+    public int GetUpgradeLevel(UpgradeType type)
+    {
+        return stats != null ? stats.GetUpgradeLevel(type) : 0;
+    }
+
+    public int GetUpgradeCost(UpgradeType type)
+    {
+        return stats != null ? stats.GetUpgradeCost(type) : 0;
+    }
+
+    public bool CanUpgrade(UpgradeType type)
+    {
+        return stats != null && stats.CanUpgrade(type);
+    }
+
+    public bool TryUpgrade(UpgradeType type)
+    {
+        return stats != null && stats.TryUpgrade(type);
+    }
+
+    public int GetMaxUpgradeLevel()
+    {
+        return stats != null ? stats.maxUpgradeLevel : 0;
     }
 
     private void HandleMovement()

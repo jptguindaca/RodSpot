@@ -21,8 +21,8 @@ public partial class FishingController
 
         currentRequiredClicks = GetRequiredClicksForCurrentFish();
         currentFishClicks = 0;
-    currentEscapeTimeLimit = settings != null ? Mathf.Max(0.1f, settings.escapeTime) : 2.5f;
-    currentEscapeTimeRemaining = currentEscapeTimeLimit;
+        currentEscapeTimeLimit = GetEscapeTimeLimit();
+        currentEscapeTimeRemaining = currentEscapeTimeLimit;
         reelClickTimes.Clear();
 
         UpdateEscapeBar();
@@ -34,7 +34,9 @@ public partial class FishingController
     {
         // Finaliza a captura e inicia o reset suave.
         notifications?.ShowFishCaught();
-        int catchValue = currentFish != null ? currentFish.GetRandomValue() : 0;
+        int catchValue = currentFish != null
+            ? Mathf.RoundToInt(currentFish.GetRandomValue() * GetMoneyMultiplier())
+            : 0;
         if (catchUI != null)
         {
             catchUI.Show(currentFish, catchValue);
@@ -115,7 +117,7 @@ public partial class FishingController
             return;
         }
 
-        currentFishClicks = Mathf.Clamp(currentFishClicks + 1, 0, currentRequiredClicks);
+        currentFishClicks = Mathf.Clamp(currentFishClicks + GetClickPowerPerPress(), 0, currentRequiredClicks);
         UpdateEscapeBar();
 
         if (currentFishClicks >= currentRequiredClicks)
@@ -192,5 +194,27 @@ public partial class FishingController
         int safeRequiredClicks = Mathf.Max(1, currentRequiredClicks);
         escapeUI.SetClicks(currentFishClicks, safeRequiredClicks);
         escapeUI.SetTimer(currentEscapeTimeRemaining, currentEscapeTimeLimit);
+    }
+
+    private int GetClickPowerPerPress()
+    {
+        return playerControl != null ? playerControl.GetClickPowerPerPress() : 1;
+    }
+
+    private float GetMoneyMultiplier()
+    {
+        return playerControl != null ? playerControl.GetMoneyMultiplier() : 1f;
+    }
+
+    private float GetRarityBias()
+    {
+        return playerControl != null ? playerControl.GetRarityBias() : 0f;
+    }
+
+    private float GetEscapeTimeLimit()
+    {
+        float baseEscapeTime = settings != null ? Mathf.Max(0.1f, settings.escapeTime) : 2.5f;
+        float escapeBonus = playerControl != null ? playerControl.GetEscapeTimeBonusSeconds() : 0f;
+        return Mathf.Max(0.1f, baseEscapeTime + escapeBonus);
     }
 }

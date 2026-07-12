@@ -6,39 +6,48 @@ using System;
 
 namespace Fishing
 {
-    public class InventoryEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class InventoryEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public Image background;
         public Image icon;
         public TMP_Text nameText;
         public TMP_Text valueText;
 
+        InventoryItem currentItem;
         FishData currentFish;
         int currentValue;
         Action<FishData, int, Vector2> onHoverEnter;
         Action onHoverExit;
+        Action<InventoryItem> onSellRequested;
 
         public void Setup(
-            FishData fish,
-            int value,
+                InventoryItem item,
             Color rarityColor,
             Action<FishData, int, Vector2> onHoverEnter,
-            Action onHoverExit)
+                Action onHoverExit,
+                Action<InventoryItem> onSellRequested)
         {
-            currentFish = fish;
-            currentValue = value;
+                currentItem = item;
+                currentFish = item != null ? item.fish : null;
+                currentValue = item != null ? item.value : 0;
             this.onHoverEnter = onHoverEnter;
             this.onHoverExit = onHoverExit;
+                this.onSellRequested = onSellRequested;
 
             if (icon != null)
             {
-                icon.sprite = fish != null ? fish.icon : null;
-                icon.enabled = fish != null && fish.icon != null;
+                    icon.sprite = currentFish != null ? currentFish.icon : null;
+                    icon.enabled = currentFish != null && currentFish.icon != null;
                 icon.preserveAspect = true;
                 icon.color = Color.white;
             }
-            if (nameText != null) nameText.text = string.Empty;
-            if (valueText != null) valueText.text = string.Empty;
+                if (nameText != null)
+                {
+                    nameText.text = currentFish != null
+                        ? string.IsNullOrWhiteSpace(currentFish.fishName) ? currentFish.name : currentFish.fishName
+                        : "Peixe";
+                }
+                if (valueText != null) valueText.text = currentValue.ToString() + " coins";
             if (background != null) background.color = rarityColor;
         }
 
@@ -51,6 +60,21 @@ namespace Fishing
         public void OnPointerExit(PointerEventData eventData)
         {
             onHoverExit?.Invoke();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button != PointerEventData.InputButton.Left)
+            {
+                return;
+            }
+
+            if (currentItem == null)
+            {
+                return;
+            }
+
+            onSellRequested?.Invoke(currentItem);
         }
     }
 }

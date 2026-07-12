@@ -27,6 +27,7 @@ public partial class FishingController : MonoBehaviour
     [SerializeField] private Transform fishPreviewAnchor;
     [SerializeField] private GameObject bobberPrefab;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private PlayerControl playerControl;
     [SerializeField] private LineRenderer fishingLine;
 
     [Header("Fish Preview")]
@@ -77,6 +78,8 @@ public partial class FishingController : MonoBehaviour
             enabled = false;
             return;
         }
+
+        CachePlayerControl();
 
         // Liga callbacks do input da pesca.
         input = new PlayerControls();
@@ -134,6 +137,14 @@ public partial class FishingController : MonoBehaviour
         if (currentBobber != null && fishingLine != null)
         {
             UpdateFishingLine();
+        }
+    }
+
+    private void CachePlayerControl()
+    {
+        if (playerControl == null)
+        {
+            playerControl = FindFirstObjectByType<PlayerControl>();
         }
     }
 }

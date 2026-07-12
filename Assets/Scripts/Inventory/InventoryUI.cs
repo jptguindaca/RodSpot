@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,11 +54,12 @@ namespace Fishing
 
         bool isVisible = false;
         bool tooltipVisible = false;
+        PlayerWallet cachedWallet;
 
         void Start()
         {
             if (cursorConfigs == null)
-                cursorConfigs = Object.FindAnyObjectByType<CursorConfigs>();
+                cursorConfigs = FindObjectOfType<CursorConfigs>();
 
             ApplyAutoLayout();
             RefreshMoney();
@@ -65,6 +67,25 @@ namespace Fishing
             if (panel != null) panel.alpha = 0;
             if (catchPopupGroup != null) catchPopupGroup.alpha = 0;
             HideTooltip();
+        }
+
+        void OnEnable()
+        {
+            CacheWallet();
+            if (cachedWallet != null)
+            {
+                cachedWallet.MoneyChanged += HandleMoneyChanged;
+            }
+
+            RefreshMoney();
+        }
+
+        void OnDisable()
+        {
+            if (cachedWallet != null)
+            {
+                cachedWallet.MoneyChanged -= HandleMoneyChanged;
+            }
         }
 
         void Update()
@@ -113,7 +134,7 @@ namespace Fishing
             }
         }
 
-        public void Refresh(List<InventoryItem> items)
+        public void Refresh(List<InventoryItem> items, Action<InventoryItem> onSellItem)
         {
             if (contentParent == null || entryPrefab == null) return;
 
@@ -126,7 +147,7 @@ namespace Fishing
                 var ui = go.GetComponent<InventoryEntryUI>();
                 if (ui != null)
                 {
-                    ui.Setup(it.fish, it.value, GetRarityColor(it.fish.rarity), ShowTooltip, HideTooltip);
+                    ui.Setup(it, GetRarityColor(it.fish.rarity), ShowTooltip, HideTooltip, onSellItem);
                 }
             }
 
@@ -352,9 +373,27 @@ namespace Fishing
             if (moneyText == null)
                 return;
 
-            var wallet = PlayerWallet.Instance;
-            int money = wallet != null ? wallet.CurrentMoney : 0;
+            CacheWallet();
+            int money = cachedWallet != null ? cachedWallet.CurrentMoney : 0;
             moneyText.text = $"Money: {money}";
+        }
+
+        void HandleMoneyChanged(int money)
+        {
+            RefreshMoney();
+        }
+
+        void CacheWallet()
+        {
+            if (cachedWallet == null)
+            {
+                cachedWallet = PlayerWallet.Instance;
+            }
+
+            if (cachedWallet == null)
+            {
+                cachedWallet = FindObjectOfType<PlayerWallet>();
+            }
         }
     }
 }

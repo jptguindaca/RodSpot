@@ -47,7 +47,7 @@ public partial class FishingController
     {
         if (settings != null && settings.fishDatabase != null)
         {
-            currentFish = settings.fishDatabase.GetRandomFish();
+            currentFish = settings.fishDatabase.GetRandomFish(GetRarityBias());
         }
         else
         {

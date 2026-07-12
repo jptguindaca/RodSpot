@@ -100,16 +100,31 @@ namespace Fishing
             }
         }
 
-        public void RemoveFish(FishData fish)
+        public bool SellFish(InventoryItem item)
         {
-            var entry = items.Find(i => i.fish == fish);
-            if (entry != null) items.Remove(entry);
+            if (item == null)
+            {
+                return false;
+            }
+
+            if (!items.Remove(item))
+            {
+                return false;
+            }
+
+            var wallet = PlayerWallet.Instance;
+            if (wallet != null)
+            {
+                wallet.AddMoney(Mathf.Max(0, item.value));
+            }
+
             RefreshUI();
+            return true;
         }
 
         void RefreshUI()
         {
-            if (inventoryUI != null) inventoryUI.Refresh(items);
+            if (inventoryUI != null) inventoryUI.Refresh(items, item => SellFish(item));
         }
     }
 }
