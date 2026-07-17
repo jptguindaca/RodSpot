@@ -40,6 +40,7 @@ public partial class FishingController
         }
 
         notifications?.ShowLineCast();
+        AudioManager.Instance?.PlayCast();
 
         biteRoutine = StartCoroutine(WaitForBite());
     }

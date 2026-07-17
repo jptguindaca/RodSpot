@@ -15,6 +15,7 @@ public partial class FishingController
         ShowBiteBar();
 
         notifications?.ShowBite(settings.hookWindow);
+        AudioManager.Instance?.PlayBite();
 
         yield return new WaitForSeconds(settings.hookWindow);
 

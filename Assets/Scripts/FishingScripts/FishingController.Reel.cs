@@ -34,6 +34,7 @@ public partial class FishingController
     {
         // Finaliza a captura e inicia o reset suave.
         notifications?.ShowFishCaught();
+        AudioManager.Instance?.PlayCatch();
         int catchValue = currentFish != null
             ? Mathf.RoundToInt(currentFish.GetRandomValue() * GetMoneyMultiplier())
             : 0;
