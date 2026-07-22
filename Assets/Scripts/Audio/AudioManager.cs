@@ -50,6 +50,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource musicSource;
     private AudioSource sfxSource;
+    private AudioSource catchSource;   // dedicado ao catch, para poder ser parado
     private AudioClip currentMusic;
     private Coroutine fadeRoutine;
 
@@ -77,6 +78,11 @@ public class AudioManager : MonoBehaviour
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
         sfxSource.playOnAwake = false;
+
+        // AudioSource proprio para o catch: usa Play()/Stop() para poder ser cortado.
+        catchSource = gameObject.AddComponent<AudioSource>();
+        catchSource.loop = false;
+        catchSource.playOnAwake = false;
 
         LoadVolumes();
     }
@@ -212,9 +218,29 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayCast() => PlaySfx(castSfx);
-    public void PlayCatch() => PlaySfx(catchSfx);
     public void PlayBite() => PlaySfx(biteSfx);
     public void PlayClick() => PlaySfx(clickSfx);
+
+    /// Toca o som do catch num AudioSource proprio (para poder ser parado com StopCatch).
+    public void PlayCatch()
+    {
+        if (catchSfx == null)
+        {
+            return;
+        }
+        catchSource.clip = catchSfx;
+        catchSource.volume = sfxVolume * masterVolume;
+        catchSource.Play();
+    }
+
+    /// Corta imediatamente o som do catch, se estiver a tocar.
+    public void StopCatch()
+    {
+        if (catchSource != null && catchSource.isPlaying)
+        {
+            catchSource.Stop();
+        }
+    }
 
     // ----------------- VOLUMES -----------------
 

@@ -7,6 +7,9 @@ public partial class FishingController
         // Instancia a boia, prepara a linha e aplica a forca do lance
         state = FishingState.WaitingBite;
 
+        // Corta o som do catch anterior, caso ainda esteja a tocar.
+        AudioManager.Instance?.StopCatch();
+
         currentBobber = Instantiate(bobberPrefab, rodTip.position, Quaternion.identity);
         currentBobberRigidbody = currentBobber.GetComponent<Rigidbody>();
         bobberLandedOnWater = false;

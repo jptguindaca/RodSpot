@@ -855,13 +855,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb883065b436e044fafd788a4edd0e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  sceneMusic: []
+  sceneMusic:
+  - sceneName: MainMenu
+    music: {fileID: 8300000, guid: fc849b0d09029414991ba0629276c8a2, type: 3}
+  - sceneName: MainGame
+    music: {fileID: 8300000, guid: 8dd78147e66a44f488d38d92d83e4a7d, type: 3}
   defaultMusic: {fileID: 0}
   musicFadeDuration: 0.75
-  castSfx: {fileID: 0}
-  catchSfx: {fileID: 0}
-  biteSfx: {fileID: 0}
-  clickSfx: {fileID: 0}
+  castSfx: {fileID: 8300000, guid: f1def8144fb3e2b43b19d10bbbefb713, type: 3}
+  catchSfx: {fileID: 8300000, guid: 532736d023ff0f1459b1166fec486ba0, type: 3}
+  biteSfx: {fileID: 8300000, guid: 8abd2e508a9bf2441a1eacf57e4d73d3, type: 3}
+  clickSfx: {fileID: 8300000, guid: 7b9216ded232caf4fac725c56953d3d0, type: 3}
   masterVolume: 1
   musicVolume: 0.6
   sfxVolume: 1
