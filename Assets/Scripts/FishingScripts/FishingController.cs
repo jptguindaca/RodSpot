@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using System.Linq;
 
 /* 
 Controla o ciclo principal de pesca; logica separada por ficheiros parciais.
@@ -144,7 +145,7 @@ public partial class FishingController : NetworkBehaviour
             return;
 
 
-        PlayerControl localPlayer = FindFirstObjectByType<PlayerControl>();
+        PlayerControl localPlayer = FindObjectsByType<PlayerControl>(FindObjectsSortMode.None).FirstOrDefault(player => player.IsOwner);
 
         if (localPlayer == null)
         {

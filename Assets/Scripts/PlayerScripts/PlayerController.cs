@@ -66,6 +66,8 @@ public class PlayerControl : NetworkBehaviour
     [ServerRpc]
     private void MoveServerRpc(Vector2 input, Vector3 forward)
     {
+
+
         moveInput = input;
 
         cameraForward = forward;
@@ -86,13 +88,12 @@ public class PlayerControl : NetworkBehaviour
 
     private void Update()
     {
-        // Processa movimento e gravidade.
-
-        if (!IsServer) { return; }
+        if (!IsServer)
+            return;
 
         HandleMovement();
         ApplyGravity();
-       
+
     }
 
     private void LateUpdate()
@@ -113,7 +114,11 @@ public class PlayerControl : NetworkBehaviour
  
         if (!IsOwner) return;
 
+       
+
         Vector2 input = context.ReadValue<Vector2>();
+
+      
 
         Vector3 forward = Vector3.forward;
 
