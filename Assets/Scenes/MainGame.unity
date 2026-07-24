@@ -26553,8 +26553,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1606508451}
-  - component: {fileID: 1606508452}
-  - component: {fileID: 1606508450}
   - component: {fileID: 1606508453}
   m_Layer: 0
   m_Name: FishingSystem
@@ -26563,28 +26561,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1606508450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606508449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b9da04d71a1f744cacdaa58cc128cd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FishingController
-  ShowTopMostFoldoutHeaderGroup: 1
-  BD: {fileID: 353296693}
-  rodTip: {fileID: 0}
-  bobberPrefab: {fileID: 2842317260903267560, guid: de9cd59cb4885a94e9a5f3b152375336, type: 3}
-  playerCamera: {fileID: 1612107474}
-  fishingLine: {fileID: 0}
-  settings: {fileID: 11400000, guid: 9ce95a211871a6d4799b351ed5a2c1e9, type: 2}
-  notifications: {fileID: 2055143758}
-  biteUI: {fileID: 2055143760}
-  escapeUI: {fileID: 2055143759}
 --- !u!4 &1606508451
 Transform:
   m_ObjectHideFlags: 0
@@ -26600,31 +26576,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1606508452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606508449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1253814569
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &1606508453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31906,7 +31857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7461ba42092d61438da949d0e02af16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishingProgression
-  fishingController: {fileID: 1606508450}
+  fishingController: {fileID: 0}
   progressionSettings: {fileID: 11400000, guid: c4c7b8cc2e7b9394d99e213a5d4bcb45, type: 2}
   xpUI: {fileID: 1896391463}
   currentLevel: 0

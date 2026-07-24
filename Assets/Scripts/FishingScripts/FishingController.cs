@@ -68,13 +68,23 @@ public partial class FishingController : NetworkBehaviour
 
         Debug.Log($"FishingController Spawned | Owner:{IsOwner} Client:{OwnerClientId}");
 
+        if (IsServer)
+        {
+            SetupFishingReferences();
+        }
+
         if (!IsOwner)
         {
             input?.Fishing.Disable();
             return;
         }
+        // Os paineis podem iniciar inativos; por isso devem ser encontrados
+        // tambem nesses estados antes de o jogador tentar pescar.
+        notifications = FindFirstObjectByType<FishingNotifications>(FindObjectsInactive.Include);
+        biteUI = FindFirstObjectByType<FishingBiteUI>(FindObjectsInactive.Include);
+        escapeUI = FindFirstObjectByType<FishingEscapeUI>(FindObjectsInactive.Include);
 
-        SetupLocalFishingReferences();
+        SetupFishingReferences();
         CacheFishingLine();
 
         input?.Fishing.Enable();
@@ -139,13 +149,13 @@ public partial class FishingController : NetworkBehaviour
             UpdateFishingLine();
         }
     }
-    private void SetupLocalFishingReferences()
+    private void SetupFishingReferences()
     {
-        if (!IsOwner)
+        if (!IsOwner && !IsServer)
             return;
 
 
-        PlayerControl localPlayer = FindObjectsByType<PlayerControl>(FindObjectsSortMode.None).FirstOrDefault(player => player.IsOwner);
+        PlayerControl localPlayer = GetComponent<PlayerControl>();
 
         if (localPlayer == null)
         {

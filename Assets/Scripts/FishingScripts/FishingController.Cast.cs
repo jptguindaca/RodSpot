@@ -25,7 +25,7 @@ public partial class FishingController: NetworkBehaviour
 
         if (rodTip == null)
         {
-            Debug.LogError("RodTip não atribuído!");
+            Debug.LogError("RodTip nï¿½o atribuï¿½do!");
             return;
         }
 
@@ -41,6 +41,7 @@ public partial class FishingController: NetworkBehaviour
         networkObject.Spawn();
 
         currentBobber = bobber;
+        currentBobberRigidbody = bobber.GetComponent<Rigidbody>();
 
         BobberContact contact = currentBobber.AddComponent<BobberContact>();
         contact.Initialize(this);
@@ -61,7 +62,7 @@ public partial class FishingController: NetworkBehaviour
             UpdateFishingLine();
         }
 
-        Vector3 direction = playerCamera.transform.forward;
+       Vector3 direction = transform.forward;
         float castForce = Mathf.Lerp(settings.minCastForce, settings.maxCastForce, chargeRatio);
         float scaledUpward = Mathf.Lerp(settings.upwardForce * 0.4f, settings.upwardForce, chargeRatio);
         Vector3 force = direction * castForce + Vector3.up * scaledUpward;

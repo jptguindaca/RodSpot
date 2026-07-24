@@ -1208,6 +1208,7 @@ GameObject:
   - component: {fileID: 3268095865199073218}
   - component: {fileID: 4913021851969341410}
   - component: {fileID: -8010013190334132129}
+  - component: {fileID: -7348706474051015114}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -1456,7 +1457,7 @@ MonoBehaviour:
     m_ActionName: 'Interactions/Back[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: da869351-0a6e-4f39-b954-cc696902cd99
+  m_DefaultActionMap: GamePlay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!65 &3268095865199073218
@@ -1553,6 +1554,28 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-7348706474051015114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140122231603885925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9da04d71a1f744cacdaa58cc128cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FishingController
+  ShowTopMostFoldoutHeaderGroup: 1
+  BD: {fileID: 0}
+  rodTip: {fileID: 0}
+  bobberPrefab: {fileID: 2842317260903267560, guid: de9cd59cb4885a94e9a5f3b152375336, type: 3}
+  playerCamera: {fileID: 0}
+  fishingLine: {fileID: 0}
+  settings: {fileID: 11400000, guid: 9ce95a211871a6d4799b351ed5a2c1e9, type: 2}
+  notifications: {fileID: 0}
+  biteUI: {fileID: 0}
+  escapeUI: {fileID: 0}
 --- !u!1 &4220552883945513791
 GameObject:
   m_ObjectHideFlags: 0
