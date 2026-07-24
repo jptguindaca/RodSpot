@@ -63,12 +63,20 @@ public partial class FishingController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
+
         Debug.Log($"FishingController Spawned | Owner:{IsOwner} Client:{OwnerClientId}");
 
         if (!IsOwner)
         {
             input?.Fishing.Disable();
+            return;
         }
+
+        SetupLocalFishingReferences();
+        CacheFishingLine();
+
+        input?.Fishing.Enable();
     }
     private void Awake()
     {
@@ -130,4 +138,81 @@ public partial class FishingController : NetworkBehaviour
             UpdateFishingLine();
         }
     }
+    private void SetupLocalFishingReferences()
+    {
+        if (!IsOwner)
+            return;
+
+
+        PlayerControl localPlayer = FindFirstObjectByType<PlayerControl>();
+
+        if (localPlayer == null)
+        {
+            Debug.LogError("Player local não encontrado!");
+            return;
+        }
+
+
+        Transform fishingRod = null;
+
+        foreach (Transform child in localPlayer.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name.Contains("FishingRod"))
+            {
+                fishingRod = child;
+                break;
+            }
+        }
+
+        if (fishingRod == null)
+        {
+            Debug.LogError("FishingRod não encontrada!");
+            return;
+        }
+
+
+        if (rodTip == null)
+        {
+            foreach (Transform child in fishingRod.GetComponentsInChildren<Transform>(true))
+            {
+                if (child.name == "RodTip")
+                {
+                    rodTip = child;
+                    break;
+                }
+            }
+        }
+
+
+        if (fishingLine == null)
+        {
+            fishingLine = fishingRod.GetComponentInChildren<LineRenderer>(true);
+        }
+
+        // Câmara local
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
+    }
+        private void CacheFishingLine()
+
+        {
+
+            if (fishingLine == null)
+                return;
+
+             lineStartWidth = fishingLine.startWidth;
+             lineEndWidth = fishingLine.endWidth;
+             lineStartColor = fishingLine.startColor;
+             lineEndColor = fishingLine.endColor;
+
+             lineCached = true;
+
+             fishingLine.enabled = false;
+             fishingLine.positionCount = 0;
+         }
+    
 }
+   
+
