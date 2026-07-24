@@ -110,18 +110,25 @@ public class PlayerControl : NetworkBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
+ 
         if (!IsOwner) return;
 
         Vector2 input = context.ReadValue<Vector2>();
 
         Vector3 forward = Vector3.forward;
 
-        if (CameraManager.Instance != null && CameraManager.Instance.camTransform != null)
+        if (CameraManager.Instance != null &&
+            CameraManager.Instance.camTransform != null)
         {
-            forward = CameraManager.Instance.camTransform.forward;
+            Transform cam = CameraManager.Instance.camTransform;
+
+            forward = cam.forward;
+            forward.y = 0f;
+            forward.Normalize();
         }
 
         MoveServerRpc(input, forward);
+   
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -159,20 +166,20 @@ public class PlayerControl : NetworkBehaviour
 
     private Vector3 GetMoveDirection()
     {
-        // Converte input em direcao relativa a camera.
-      Vector3 forward = cameraForward;
-Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 forward = cameraForward;
 
-        forward.y = 0;
-        right.y = 0;
-
+        // Garantir que a direção é apenas horizontal
+        forward.y = 0f;
         forward.Normalize();
-        right.Normalize();
 
-        
+        // Calcula o lado direito da câmara
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
 
-        return forward * moveInput.y + right * moveInput.x;
-        
+        Vector3 direction =
+            forward * moveInput.y +
+            right * moveInput.x;
+
+        return direction.normalized;
     }
 
     private void RotatePlayer(Vector3 moveDirection)
