@@ -863,7 +863,7 @@ MonoBehaviour:
   defaultMusic: {fileID: 0}
   musicFadeDuration: 0.75
   castSfx: {fileID: 8300000, guid: f1def8144fb3e2b43b19d10bbbefb713, type: 3}
-  catchSfx: {fileID: 8300000, guid: 532736d023ff0f1459b1166fec486ba0, type: 3}
+  catchSfx: {fileID: 8300000, guid: 556ff4b7b2c1bce45a2d7ceb87ed7094, type: 3}
   biteSfx: {fileID: 8300000, guid: 8abd2e508a9bf2441a1eacf57e4d73d3, type: 3}
   clickSfx: {fileID: 8300000, guid: 7b9216ded232caf4fac725c56953d3d0, type: 3}
   masterVolume: 1
